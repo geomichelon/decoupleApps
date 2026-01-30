@@ -1,42 +1,47 @@
 # 00 — Architecture
 
-> Outline com princípios, camadas e boundaries para o DecoupledApps-iOS.
+> Outline with principles, layers, and boundaries for DecoupledApps-iOS.
 
-## Propósito
-- Descrever a arquitetura-alvo e o porquê do desenho
-- Definir limites claros entre módulos e unidades de negócio
-- Servir como referência para decisões futuras
+## Purpose
+- Describe the target architecture and its rationale
+- Define clear boundaries between modules and business units
+- Serve as a reference for future decisions
 
-## Princípios
-- Desacoplamento por unidade de negócio (BU)
-- Contratos públicos mínimos e estáveis
-- Dependências sempre apontando para o Domain
-- Composition Root como único ponto de montagem
-- Evolução incremental (strangler)
+## Principles
+- Decoupling by business unit (BU)
+- Minimal, stable public contracts
+- Dependencies always point toward Domain
+- Composition Root as the single assembly point
+- Incremental evolution (strangler)
 
-## Camadas
-- **Feature**: orquestração de UI e casos de uso
-- **Domain**: regras de negócio, entidades e contratos
-- **Infra**: implementações técnicas (network, persistence, analytics)
-- **UI/DesignSystem**: componentes visuais reutilizáveis
-- **Composition Root**: montagem e injeção de dependências
+## Layers
+- **Feature**: UI orchestration and use cases
+- **Domain**: business rules, entities, contracts
+- **Infra**: technical implementations (network, persistence, analytics)
+- **UI/DesignSystem**: reusable UI components
+- **Composition Root**: assembly and dependency injection
 
 ## Boundaries
-- BUs (Catalog, Checkout, Profile) não importam entre si
-- Integrações entre BUs ocorrem via contratos em `SharedContracts`
-- Infra nunca depende de Feature
-- UI/DesignSystem não depende de Feature/Domain/Infra
-- Composition Root é o único ponto que conhece múltiplas BUs
+- BUs (Catalog, Checkout, Profile) do not import each other
+- Integrations happen via contracts in `SharedContracts`
+- Infra never depends on Feature
+- UI/DesignSystem does not depend on Feature/Domain/Infra
+- Composition Root is the only place aware of multiple BUs
 
-## Decisões estruturais
-- Contratos (protocols/DTOs/events) vivem no Domain
-- Navegação via protocolos para evitar acoplamento direto
-- Regras anti-ciclo obrigatórias
-- Documentação e métricas como parte da governança
+## Structural decisions
+- Contracts (protocols/DTOs/events) live in Domain
+- Navigation via protocols to avoid direct coupling
+- Anti-cycle rules are mandatory
+- Documentation and metrics are part of governance
 
-## Referências internas
+## References
 - `01-Dependency-Graph-Rules.md`
 - `02-Module-API-Contracts.md`
 - `03-Build-Performance.md`
 - `04-Migration-Plan.md`
 - `05-Ownership-and-Governance.md`
+
+## Assumptions
+- Dependency manager: Swift Package Manager (SPM) with a local package in the repo.
+- “Core” is a technical utility module, not business logic.
+- New app targets coexist with the legacy target during migration.

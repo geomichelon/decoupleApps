@@ -1,37 +1,37 @@
 # 05 — Ownership and Governance
 
-> Outline de ownership, PR checks e lint de arquitetura.
+> Outline for ownership, PR checks, and architecture lint.
 
-## Objetivo
-- Definir responsabilidades claras por modulo e BU
-- Garantir qualidade e estabilidade dos contratos
+## Goal
+- Define clear responsibility per module and BU
+- Ensure quality and contract stability
 
 ## Ownership
-- Cada modulo tem um owner (time ou area)
-- Owners aprovam mudancas em contratos e dependencias
-- Rotas de escalacao para conflitos de arquitetura
+- Each module has an owner (team or area)
+- Owners approve contract and dependency changes
+- Escalation path for architecture conflicts
 
-## PR checks obrigatorios
-- Lint de dependencias (camada/BU)
-- Checagem de ciclos no grafo
-- Testes essenciais do modulo
-- Validacao de contrato (compatibilidade)
+## Required PR checks
+- Dependency lint (layer/BU)
+- Cycle detection in the graph
+- Essential module tests
+- Contract validation (compatibility)
 
-## Lint e automacao
-- Regras por camada e por BU
-- Budget de dependencias por modulo
-- Alertas para crescimento de SharedContracts
+## Lint and automation
+- Rules per layer and per BU
+- Dependency budget per module
+- Alerts for SharedContracts growth
 
-## Politica de mudanca
-- Mudancas que quebram contrato exigem deprecacao
-- Documentacao atualizada como criterio de merge
-- Revisao arquitetural para novas dependencias
+## Change policy
+- Breaking contract changes require deprecation
+- Docs updates are a merge requirement
+- Architecture review for new dependencies
 
-## Riscos comuns
-- Modulos “shared” virando monolito
-- Dependencias transitivas nao auditadas
-- Owners ausentes ou sem accountability
+## Common risks
+- “Shared” modules turning into a monolith
+- Unaudited transitive dependencies
+- Missing ownership/accountability
 
-## Referencias internas
+## References
 - `01-Dependency-Graph-Rules.md`
 - `02-Module-API-Contracts.md`

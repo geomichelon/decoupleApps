@@ -1,46 +1,46 @@
 # 01 — Dependency Graph Rules
 
-> Outline com regras do grafo de dependencias e politica anti-ciclo.
+> Outline with dependency graph rules and anti-cycle policy.
 
-## Objetivo
-- Garantir dependencias explicitas e previsiveis
-- Evitar acoplamento cruzado entre BUs
-- Bloquear ciclos e dependencias transitivas indevidas
+## Goal
+- Ensure explicit, predictable dependencies
+- Avoid cross-BU coupling
+- Block cycles and invalid transitive dependencies
 
-## Regras de camadas
-- Feature -> Domain, UI/DesignSystem, SharedContracts, Infra (via abstracoes)
-- Domain -> SharedContracts (opcional)
-- Infra -> Domain (somente para implementar ports)
-- UI/DesignSystem -> sem dependencias acima
-- Composition Root -> todas as camadas
+## Layer rules
+- Feature -> Domain, UI/DesignSystem, SharedContracts, Infra (via abstractions)
+- Domain -> SharedContracts (optional)
+- Infra -> Domain (only to implement ports)
+- UI/DesignSystem -> no dependencies upward
+- Composition Root -> all layers
 
-## Regras por BU
-- Feature de uma BU nao depende de Feature de outra BU
-- Domain de uma BU nao depende de Domain de outra BU (apenas SharedContracts)
-- Infra nao depende de Feature
-- Composition Root e o unico ponto que integra multiplas BUs
+## BU rules
+- A BU Feature must not depend on another BU Feature
+- A BU Domain must not depend on another BU Domain (only SharedContracts)
+- Infra never depends on Feature
+- Composition Root is the only place that integrates multiple BUs
 
-## Anti-ciclo
-- Nenhum ciclo permitido (A->B->C->A)
-- Ciclos detectados bloqueiam merge
-- Excecoes sao proibidas
+## Anti-cycle
+- No cycles allowed (A->B->C->A)
+- Detected cycles block merge
+- No exceptions
 
-## Dependencias transitivas
-- Dependencias transitivas contam como publicas
-- Proibido importar modulo indiretamente
-- Auditoria periodica do grafo
+## Transitive dependencies
+- Transitive dependencies count as public
+- Indirect imports are forbidden
+- Periodic graph audit
 
-## Mecanismos de enforcement
-- Lint de dependencias por camada e BU
-- Orcamento de dependencias por modulo
-- Revisao obrigatoria para novas dependencias
+## Enforcement
+- Layer/BU dependency lint
+- Dependency budget per module
+- Mandatory review for new dependencies
 
-## Sinais de violacao
-- Crescimento rapido de SharedContracts
-- Modulos “utility” que viram hub
-- Features que “puxam” Infra diretamente
+## Violation signals
+- Fast growth of SharedContracts
+- “Utility” modules becoming hubs
+- Features pulling Infra directly
 
-## Referencias internas
+## References
 - `00-Architecture.md`
 - `02-Module-API-Contracts.md`
 - `05-Ownership-and-Governance.md`

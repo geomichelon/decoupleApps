@@ -66,8 +66,48 @@ jobs:
           name: dependency-graph
           path: Docs/diagrams/dependency-graph.mmd
 
-  main-builds:
+  main_gates:
     if: github.event_name == 'push'
+    runs-on: macos-14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode 15.x
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '15.4'
+
+      - name: Ensure scripts are executable
+        run: chmod +x Tools/*.sh
+
+      - name: Dependency rules (SPM)
+        run: bash Tools/check_spm_dependency_rules.sh
+
+      - name: Import boundaries
+        run: bash Tools/check_import_boundaries.sh
+
+      - name: Checkout gating/bypass check
+        run: bash Tools/check_checkout_bypass.sh
+
+      - name: Contract deprecation policy check
+        run: bash Tools/check_contract_deprecation_policy.sh
+
+      - name: SPM tests
+        run: swift test -v --package-path Modules
+
+      - name: Generate dependency graph
+        run: bash Tools/gen_dependency_graph.sh
+
+      - name: Upload dependency graph
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-graph
+          path: Docs/diagrams/dependency-graph.mmd
+
+  build_targets_main:
+    if: github.event_name == 'push'
+    needs: main_gates
     runs-on: macos-14
     strategy:
       fail-fast: false

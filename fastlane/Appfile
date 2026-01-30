@@ -1,0 +1,24 @@
+# App identifiers per target (one lane per app target).
+# Replace with real bundle identifiers.
+for_lane :beta_superapp do
+  app_identifier "com.example.superapp"
+end
+
+for_lane :beta_catalog do
+  app_identifier "com.example.catalog"
+end
+
+for_lane :beta_checkout do
+  app_identifier "com.example.checkout"
+end
+
+for_lane :beta_profile do
+  app_identifier "com.example.profile"
+end
+
+# Provide Apple ID and Team information via environment variables.
+apple_id(ENV["FASTLANE_USER"] || "your@email.com")
+team_id(ENV["FASTLANE_TEAM_ID"] || "TEAMID")
+
+# Optional:
+# itc_team_id(ENV["FASTLANE_ITC_TEAM_ID"])

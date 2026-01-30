@@ -24,6 +24,31 @@
 - **Release (manual)**: Fastlane-driven archive/TestFlight via workflow_dispatch.
 - `Package.swift` is the source of truth for the dependency graph.
 
+## Release (TestFlight via Fastlane)
+- CI **does not** sign or upload builds. Release is manual.
+- Fastlane lives under `/fastlane` and uses **match** by default.
+- Each target has its own lane:
+  - `beta_superapp`, `beta_catalog`, `beta_checkout`, `beta_profile`
+
+### Local release (example)
+- `bundle install`
+- `bundle exec fastlane beta_superapp`
+
+### Required GitHub secrets
+- `APP_STORE_CONNECT_API_KEY_ID`
+- `APP_STORE_CONNECT_API_ISSUER_ID`
+- `APP_STORE_CONNECT_API_KEY` (raw or base64 key content)
+- `MATCH_GIT_URL`
+- `MATCH_PASSWORD`
+
+### Optional secrets (if not using API key)
+- `FASTLANE_USER`
+- `FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD`
+
+### Signing strategy
+- **Default**: `match` (recommended, readonly in CI)
+- **Manual signing**: disable `match` and set export options in Fastfile
+
 ## Lint and automation
 - Rules per layer and per BU
 - Dependency budget per module
@@ -58,9 +83,6 @@
 - “Shared” modules turning into a monolith
 - Unaudited transitive dependencies
 - Missing ownership/accountability
-
-## Pending
-- Configure Fastlane (`fastlane/Fastfile`) with release lanes for TestFlight upload and document required App Store Connect secrets.
 
 ## References
 - `01-Dependency-Graph-Rules.md`

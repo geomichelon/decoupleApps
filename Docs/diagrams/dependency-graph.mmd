@@ -1,0 +1,45 @@
+graph TD
+  CatalogDomain
+  CatalogDomainTests
+  CatalogFeature
+  CheckoutDomain
+  CheckoutDomainTests
+  CheckoutFeature
+  Core
+  DesignSystem
+  InfraAnalytics
+  InfraAuth
+  InfraNetwork
+  InfraPayments
+  InfraPersistence
+  ProfileDomain
+  ProfileDomainTests
+  ProfileFeature
+  SharedContracts
+  SharedContractsTests
+  CatalogDomain --> SharedContracts
+  CheckoutDomain --> SharedContracts
+  ProfileDomain --> SharedContracts
+  CatalogFeature --> CatalogDomain
+  CatalogFeature --> SharedContracts
+  CatalogFeature --> DesignSystem
+  CheckoutFeature --> CheckoutDomain
+  CheckoutFeature --> SharedContracts
+  CheckoutFeature --> DesignSystem
+  ProfileFeature --> ProfileDomain
+  ProfileFeature --> SharedContracts
+  ProfileFeature --> DesignSystem
+  InfraNetwork --> Core
+  InfraNetwork --> SharedContracts
+  InfraPersistence --> Core
+  InfraPersistence --> SharedContracts
+  InfraAnalytics --> Core
+  InfraAnalytics --> SharedContracts
+  InfraPayments --> Core
+  InfraPayments --> SharedContracts
+  InfraAuth --> Core
+  InfraAuth --> SharedContracts
+  SharedContractsTests --> SharedContracts
+  CatalogDomainTests --> CatalogDomain
+  CheckoutDomainTests --> CheckoutDomain
+  ProfileDomainTests --> ProfileDomain

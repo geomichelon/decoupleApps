@@ -18,6 +18,12 @@
 - Contract validation (compatibility)
 - Ensure CheckoutFeature is not instantiated outside router/gate in App targets
 
+## CI/CD Governance
+- **PR (CI)**: architecture gates + import boundaries + checkout gating check + SPM unit tests.
+- **Main (CD-lite)**: build all app targets (SuperApp + BU apps) and upload logs.
+- **Release (manual)**: Fastlane-driven archive/TestFlight via workflow_dispatch.
+- `Package.swift` is the source of truth for the dependency graph.
+
 ## Lint and automation
 - Rules per layer and per BU
 - Dependency budget per module
@@ -28,10 +34,33 @@
 - Docs updates are a merge requirement
 - Architecture review for new dependencies
 
+## Contract Change Management
+
+### PR checklist (required when contracts change)
+- Identify contract **owner** and affected **consumers**.
+- Classify change: **additive** vs **breaking**.
+- For breaking changes, introduce **v2 alongside v1**.
+- Update docs (`Docs/02`) with timeline and migration guidance.
+- Confirm compatibility window and rollout plan.
+- Update `Docs/contracts/CHANGELOG.md` and, if breaking/removal, `Docs/contracts/DEPRECATIONS.md`.
+
+### Ownership & approvals
+- Contract owner approves any breaking change.
+- Platform/architecture review required for v1 removals.
+- Release notes must include contract changes and deprecation dates.
+
+### Recommended CI gates (documentation)
+- Lint/graph checks to prevent forbidden dependencies.
+- Contract usage checks to ensure v1 is still consumed before removal.
+- Block merges if contract docs (`Docs/02`, `Docs/contracts/*`) are not updated for contract changes.
+
 ## Common risks
 - “Shared” modules turning into a monolith
 - Unaudited transitive dependencies
 - Missing ownership/accountability
+
+## Pending
+- Configure Fastlane (`fastlane/Fastfile`) with release lanes for TestFlight upload and document required App Store Connect secrets.
 
 ## References
 - `01-Dependency-Graph-Rules.md`

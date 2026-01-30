@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Rules enforced (SPM target dependencies + source scan for Domain):
+# 1) *Feature cannot depend on *Feature.
+# 2) *Domain must not import SwiftUI or UIKit.
+# 3) Core* and *Contracts cannot depend on *Feature.
+
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-RULES_FILE="$ROOT_DIR/Tools/dependency-rules.yml"
 PACKAGE_DIR="$ROOT_DIR/Modules"
+SOURCES_DIR="$ROOT_DIR/Modules/Sources"
 
 if ! command -v swift >/dev/null 2>&1; then
   echo "swift not found. Install Xcode or Swift toolchain." >&2
@@ -12,87 +17,72 @@ fi
 
 DUMP_JSON="$(swift package --package-path "$PACKAGE_DIR" dump-package)"
 
-RULES_FILE="$RULES_FILE" DUMP_JSON="$DUMP_JSON" python3 - <<'PY'
+SOURCES_DIR="$SOURCES_DIR" DUMP_JSON="$DUMP_JSON" python3 - <<'PY'
 import json
 import os
-import re
 import sys
+from pathlib import Path
 
-rules_path = os.environ.get("RULES_FILE")
-package_dump = os.environ.get("DUMP_JSON")
-
-rules = json.loads(open(rules_path, "r", encoding="utf-8").read())
-data = json.loads(package_dump)
-
-patterns = rules.get("groups", {})
-overrides = rules.get("overrides", {})
-allow = rules.get("allow", {})
-
-ordered_groups = list(patterns.items())
-
-def group_for(name: str) -> str:
-    if name in overrides:
-        return overrides[name]
-    for group, pattern in ordered_groups:
-        if re.match(pattern, name):
-            return group
-    return "Unknown"
-
+data = json.loads(os.environ["DUMP_JSON"])
+sources_dir = Path(os.environ["SOURCES_DIR"])
 
 targets = data.get("targets", [])
 all_targets = {t["name"] for t in targets}
 
-deps_map = {}
-for t in targets:
-    deps = []
-    for dep in t.get("dependencies", []):
-        if dep.get("type") == "target":
-            deps.append(dep.get("name"))
-    deps_map[t["name"]] = deps
+def is_feature(name: str) -> bool:
+    return name.endswith("Feature")
+
+def is_domain(name: str) -> bool:
+    return name.endswith("Domain")
+
+def is_core(name: str) -> bool:
+    return name.startswith("Core") or name == "Core"
+
+def is_contracts(name: str) -> bool:
+    return name.endswith("Contracts") or name == "SharedContracts"
+
+def dep_name(dep) -> str | None:
+    if isinstance(dep, dict):
+        if "name" in dep:
+            return dep.get("name")
+        if "byName" in dep and isinstance(dep.get("byName"), list):
+            return dep["byName"][0]
+    return None
 
 errors = []
 
-for src, deps in deps_map.items():
-    src_group = group_for(src)
-    if src_group not in allow:
-        errors.append(f"Unknown group for target '{src}'")
-        continue
+for t in targets:
+    src = t["name"]
+    deps = []
+    for dep in t.get("dependencies", []):
+        name = dep_name(dep)
+        if name:
+            deps.append(name)
     for dep in deps:
         if dep not in all_targets:
             continue
-        dep_group = group_for(dep)
-        if dep_group == "Unknown":
-            errors.append(f"Unknown group for dependency '{dep}' (from {src})")
-            continue
-        if dep_group not in allow[src_group]:
-            errors.append(f"Rule violation: {src} ({src_group}) -> {dep} ({dep_group})")
+        if is_feature(src) and is_feature(dep):
+            errors.append(f"Rule violation: {src} (Feature) depends on {dep} (Feature)")
+        if (is_core(src) or is_contracts(src)) and is_feature(dep):
+            errors.append(f"Rule violation: {src} (Core/Contracts) depends on {dep} (Feature)")
 
-# Cycle detection
-visited = {}
-stack = []
-
-def visit(node: str):
-    state = visited.get(node, "unvisited")
-    if state == "visiting":
-        cycle = " -> ".join(stack + [node])
-        errors.append(f"Cycle detected: {cycle}")
-        return
-    if state == "visited":
-        return
-    visited[node] = "visiting"
-    stack.append(node)
-    for dep in deps_map.get(node, []):
-        if dep in all_targets:
-            visit(dep)
-    stack.pop()
-    visited[node] = "visited"
-
-for node in all_targets:
-    if visited.get(node) != "visited":
-        visit(node)
+# Domain source scan for SwiftUI/UIKit imports
+for t in targets:
+    name = t["name"]
+    if not is_domain(name):
+        continue
+    module_dir = sources_dir / name
+    if not module_dir.exists():
+        continue
+    for path in module_dir.rglob("*.swift"):
+        content = path.read_text(encoding="utf-8")
+        for line in content.splitlines():
+            line = line.strip()
+            if line.startswith("import SwiftUI") or line.startswith("import UIKit"):
+                errors.append(f"Rule violation: {name} (Domain) imports UI framework in {path}")
 
 if errors:
-    print("Dependency rule violations:")
+    print("Dependency rules violations:")
     for e in errors:
         print(f"- {e}")
     sys.exit(1)

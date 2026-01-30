@@ -39,6 +39,8 @@ let package = Package(
         .target(name: "InfraPayments", dependencies: ["Core", "SharedContracts"]),
         .target(name: "InfraAuth", dependencies: ["Core", "SharedContracts"]),
         .testTarget(name: "SharedContractsTests", dependencies: ["SharedContracts"]),
-        .testTarget(name: "CatalogDomainTests", dependencies: ["CatalogDomain"])
+        .testTarget(name: "CatalogDomainTests", dependencies: ["CatalogDomain"]),
+        .testTarget(name: "CheckoutDomainTests", dependencies: ["CheckoutDomain"]),
+        .testTarget(name: "ProfileDomainTests", dependencies: ["ProfileDomain"])
     ]
 )

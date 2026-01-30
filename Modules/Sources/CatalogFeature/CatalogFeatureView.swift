@@ -6,16 +6,20 @@ import SharedContracts
 public struct CatalogFeatureView: View {
     private let useCase: CatalogUseCase
     private let checkoutEntryPoint: CheckoutEntryPoint
+    private let profileEntryPoint: ProfileEntryPoint
 
     @State private var items: [CatalogItem] = []
     @State private var didTriggerCheckout = false
+    @State private var didTriggerProfile = false
 
     public init(
         useCase: CatalogUseCase = DefaultCatalogUseCase(),
-        checkoutEntryPoint: CheckoutEntryPoint = NoopCheckoutEntryPoint()
+        checkoutEntryPoint: CheckoutEntryPoint = NoopCheckoutEntryPoint(),
+        profileEntryPoint: ProfileEntryPoint = NoopProfileEntryPoint()
     ) {
         self.useCase = useCase
         self.checkoutEntryPoint = checkoutEntryPoint
+        self.profileEntryPoint = profileEntryPoint
     }
 
     public var body: some View {
@@ -47,6 +51,13 @@ public struct CatalogFeatureView: View {
                 }
                 .disabled(items.isEmpty)
             }
+
+            Section {
+                Button("Go to Profile") {
+                    profileEntryPoint.showProfile()
+                    didTriggerProfile = true
+                }
+            }
         }
         .listStyle(.insetGrouped)
         .navigationTitle("Catalog")
@@ -58,6 +69,11 @@ public struct CatalogFeatureView: View {
         } message: {
             Text("The checkout flow was triggered via entry point.")
         }
+        .alert("Profile opened", isPresented: $didTriggerProfile) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("The profile flow was triggered via entry point.")
+        }
     }
 }
 
@@ -67,4 +83,10 @@ public struct NoopCheckoutEntryPoint: CheckoutEntryPoint {
     public func startCheckout(with context: CheckoutContextDTO) {
         _ = context
     }
+}
+
+public struct NoopProfileEntryPoint: ProfileEntryPoint {
+    public init() {}
+
+    public func showProfile() {}
 }

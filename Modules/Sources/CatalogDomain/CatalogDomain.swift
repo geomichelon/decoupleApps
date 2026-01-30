@@ -1,8 +1,7 @@
 // Author: George Michelon
 import Foundation
-import SharedContracts
 
-public struct CatalogItem: Identifiable, Equatable {
+public struct CatalogItem: Identifiable, Hashable, Sendable {
     public let id: UUID
     public let title: String
     public let price: Decimal
@@ -19,12 +18,21 @@ public protocol CatalogUseCase {
 }
 
 public struct DefaultCatalogUseCase: CatalogUseCase {
-    public init() {}
+    private let items: [CatalogItem]
+
+    public init(items: [CatalogItem] = CatalogItem.sampleData) {
+        self.items = items
+    }
 
     public func fetchItems() -> [CatalogItem] {
-        [
-            CatalogItem(id: UUID(), title: "Starter Pack", price: 19.90),
-            CatalogItem(id: UUID(), title: "Pro Pack", price: 49.90)
-        ]
+        items
     }
+}
+
+public extension CatalogItem {
+    static let sampleData: [CatalogItem] = [
+        CatalogItem(id: UUID(), title: "Starter Pack", price: 19.90),
+        CatalogItem(id: UUID(), title: "Pro Pack", price: 49.90),
+        CatalogItem(id: UUID(), title: "Enterprise Pack", price: 99.90)
+    ]
 }

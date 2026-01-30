@@ -1,6 +1,18 @@
 // Author: George Michelon
 import Foundation
 
+// MARK: - Entry Points
+
+public protocol CheckoutEntryPoint {
+    func startCheckout(with context: CheckoutContextDTO)
+}
+
+public protocol ProfileEntryPoint {
+    func showProfile()
+}
+
+// MARK: - DTOs
+
 public struct CheckoutLineItemDTO: Hashable, Sendable {
     public let id: UUID
     public let name: String
@@ -25,16 +37,7 @@ public struct CheckoutContextDTO: Hashable, Sendable {
     }
 }
 
-public protocol CheckoutRouting {
-    func startCheckout(with context: CheckoutContextDTO)
-}
-
-public enum AuthEvent: Equatable, Sendable {
-    case signedIn(userID: String)
-    case signedOut
-}
-
-public struct AuthSnapshotDTO: Equatable, Sendable {
+public struct AuthSnapshotDTO: Hashable, Sendable {
     public let isAuthenticated: Bool
     public let userID: String?
 
@@ -44,6 +47,13 @@ public struct AuthSnapshotDTO: Equatable, Sendable {
     }
 
     public static let signedOut = AuthSnapshotDTO(isAuthenticated: false, userID: nil)
+}
+
+// MARK: - Events / Publishers
+
+public enum AuthEvent: Hashable, Sendable {
+    case signedIn(userID: String)
+    case signedOut
 }
 
 public protocol AuthEventPublishing {

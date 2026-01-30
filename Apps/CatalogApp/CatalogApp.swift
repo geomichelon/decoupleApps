@@ -1,7 +1,6 @@
 // Author: George Michelon
 import SwiftUI
 import CatalogFeature
-import CatalogDomain
 import SharedContracts
 
 @main
@@ -19,12 +18,10 @@ private struct CatalogAppRootView: View {
     var body: some View {
         NavigationStack {
             CatalogFeatureView(
-                items: SampleData.catalogItems,
-                checkoutRouter: CatalogCheckoutRouter { _ in
+                checkoutEntryPoint: AlertCheckoutEntryPoint {
                     showingCheckout = true
                 }
             )
-            .navigationTitle("Catalog")
             .alert("Checkout unavailable", isPresented: $showingCheckout) {
                 Button("OK", role: .cancel) {}
             } message: {
@@ -34,17 +31,11 @@ private struct CatalogAppRootView: View {
     }
 }
 
-private struct CatalogCheckoutRouter: CheckoutRouting {
-    let onRoute: (CheckoutContextDTO) -> Void
+private struct AlertCheckoutEntryPoint: CheckoutEntryPoint {
+    let onTrigger: () -> Void
 
     func startCheckout(with context: CheckoutContextDTO) {
-        onRoute(context)
+        _ = context
+        onTrigger()
     }
-}
-
-private enum SampleData {
-    static let catalogItems = [
-        CatalogItem(id: UUID(), title: "Starter Pack", price: 19.90),
-        CatalogItem(id: UUID(), title: "Pro Pack", price: 49.90)
-    ]
 }

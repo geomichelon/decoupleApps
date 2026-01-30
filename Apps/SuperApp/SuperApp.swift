@@ -1,77 +1,50 @@
 // Author: George Michelon
 import SwiftUI
 import CatalogFeature
-import CatalogDomain
 import CheckoutFeature
-import CheckoutDomain
 import ProfileFeature
 import SharedContracts
-import InfraAuth
 
 @main
 struct SuperApp: App {
-    private let authBus = AuthEventBus()
-
     var body: some Scene {
         WindowGroup {
-            SuperAppRootView(authBus: authBus)
+            SuperAppRootView()
         }
     }
 }
 
-private enum SuperAppRoute: Hashable {
-    case checkout(CheckoutContextDTO)
+private enum SuperTab: Hashable {
+    case catalog
+    case checkout
+    case profile
 }
 
 private struct SuperAppRootView: View {
-    let authBus: AuthEventBus
-
-    @State private var path = NavigationPath()
+    @State private var selection: SuperTab = .catalog
 
     var body: some View {
-        NavigationStack(path: $path) {
-            List {
-                NavigationLink("Catalog") {
-                    CatalogFeatureView(
-                        items: SampleData.catalogItems,
-                        checkoutRouter: CheckoutRouter(path: $path)
-                    )
-                }
+        TabView(selection: $selection) {
+            CatalogFeatureView(checkoutEntryPoint: SuperCheckoutEntryPoint { selection = .checkout })
+                .tabItem { Text("Catalog") }
+                .tag(SuperTab.catalog)
 
-                NavigationLink("Profile") {
-                    ProfileFeatureView(authPublisher: authBus)
-                }
-            }
-            .navigationTitle("SuperApp")
-            .navigationDestination(for: SuperAppRoute.self) { route in
-                switch route {
-                case .checkout(let context):
-                    CheckoutFeatureView(
-                        cart: SampleData.cart(from: context),
-                        context: context,
-                        authObserver: authBus
-                    )
-                }
-            }
+            CheckoutFeatureView()
+                .tabItem { Text("Checkout") }
+                .tag(SuperTab.checkout)
+
+            ProfileFeatureView()
+                .tabItem { Text("Profile") }
+                .tag(SuperTab.profile)
         }
     }
 }
 
-private struct CheckoutRouter: CheckoutRouting {
-    let path: Binding<NavigationPath>
+private struct SuperCheckoutEntryPoint: CheckoutEntryPoint {
+    let onCheckout: () -> Void
 
     func startCheckout(with context: CheckoutContextDTO) {
-        path.wrappedValue.append(SuperAppRoute.checkout(context))
-    }
-}
-
-private enum SampleData {
-    static let catalogItems = [
-        CatalogItem(id: UUID(), title: "Starter Pack", price: 19.90),
-        CatalogItem(id: UUID(), title: "Pro Pack", price: 49.90)
-    ]
-
-    static func cart(from context: CheckoutContextDTO) -> Cart {
-        Cart(items: context.items)
+        _ = context
+        onCheckout()
     }
 }

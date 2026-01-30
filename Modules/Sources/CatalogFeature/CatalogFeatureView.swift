@@ -1,30 +1,32 @@
 // Author: George Michelon
 import SwiftUI
-import DesignSystem
 import CatalogDomain
 import SharedContracts
 
 public struct CatalogFeatureView: View {
-    private let items: [CatalogItem]
-    private let checkoutRouter: CheckoutRouting
+    private let useCase: CatalogUseCase
+    private let checkoutEntryPoint: CheckoutEntryPoint
 
-    public init(items: [CatalogItem], checkoutRouter: CheckoutRouting) {
-        self.items = items
-        self.checkoutRouter = checkoutRouter
+    @State private var items: [CatalogItem] = []
+    @State private var didTriggerCheckout = false
+
+    public init(
+        useCase: CatalogUseCase = DefaultCatalogUseCase(),
+        checkoutEntryPoint: CheckoutEntryPoint = NoopCheckoutEntryPoint()
+    ) {
+        self.useCase = useCase
+        self.checkoutEntryPoint = checkoutEntryPoint
     }
 
     public var body: some View {
         List {
             Section("Catalog") {
                 ForEach(items) { item in
-                    Card {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(item.title).font(.headline)
-                                Text("$\(item.price)").font(.subheadline)
-                            }
-                            Spacer()
-                        }
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(item.title)
+                            .font(.headline)
+                        Text("$\(item.price)")
+                            .foregroundStyle(.secondary)
                     }
                 }
             }
@@ -32,15 +34,37 @@ public struct CatalogFeatureView: View {
             Section {
                 Button("Go to Checkout") {
                     let lineItems = items.map {
-                        CheckoutLineItemDTO(id: $0.id, name: $0.title, price: $0.price, quantity: 1)
+                        CheckoutLineItemDTO(
+                            id: $0.id,
+                            name: $0.title,
+                            price: $0.price,
+                            quantity: 1
+                        )
                     }
                     let context = CheckoutContextDTO(items: lineItems, source: "catalog")
-                    checkoutRouter.startCheckout(with: context)
+                    checkoutEntryPoint.startCheckout(with: context)
+                    didTriggerCheckout = true
                 }
-                .buttonStyle(PrimaryButtonStyle())
+                .disabled(items.isEmpty)
             }
         }
         .listStyle(.insetGrouped)
         .navigationTitle("Catalog")
+        .onAppear {
+            items = useCase.fetchItems()
+        }
+        .alert("Checkout started", isPresented: $didTriggerCheckout) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("The checkout flow was triggered via entry point.")
+        }
+    }
+}
+
+public struct NoopCheckoutEntryPoint: CheckoutEntryPoint {
+    public init() {}
+
+    public func startCheckout(with context: CheckoutContextDTO) {
+        _ = context
     }
 }

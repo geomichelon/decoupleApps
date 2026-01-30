@@ -18,6 +18,12 @@
 - Contract validation (compatibility)
 - Ensure CheckoutFeature is not instantiated outside router/gate in App targets
 
+## CI/CD Governance
+- **PR (CI)**: architecture gates + import boundaries + checkout gating check + SPM unit tests.
+- **Main (CD-lite)**: build all app targets (SuperApp + BU apps) and upload logs.
+- **Release (manual)**: Fastlane-driven archive/TestFlight via workflow_dispatch.
+- `Package.swift` is the source of truth for the dependency graph.
+
 ## Lint and automation
 - Rules per layer and per BU
 - Dependency budget per module

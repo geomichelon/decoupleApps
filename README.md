@@ -17,7 +17,8 @@ Author: George Michelon
 10. Tests and governance
 11. Roadmap
 12. Trade-offs FAQ
-13. How to run
+13. Development workflow
+14. How to run
 
 ## 1. Context and problem (thousands of modules / agility)
 - Super-app scenario: scope, team, and dependency growth
@@ -311,7 +312,25 @@ Author: George Michelon
 - Script phases and build impact
 - App size and linking implications
 
-## 13. How to run (text-only steps)
+## 13. Development workflow
+- Run architecture checks:
+  - `bash Tools/check_spm_dependency_rules.sh`
+  - `bash Tools/check_import_boundaries.sh`
+  - `bash Tools/check_checkout_bypass.sh`
+- Run fast tests:
+  - `bash Tools/run_tests.sh`
+- Update dependency graph:
+  - `bash Tools/gen_dependency_graph.sh`
+  - Commit `Docs/diagrams/dependency-graph.mmd` if it changes
+- Benchmark builds:
+  - `bash Tools/benchmark_build.sh`
+  - Logs saved under `Tools/results/<timestamp>/`
+- CI behavior:
+  - PR: gates + tests + graph enforcement
+  - Main: parallel builds + log artifacts
+  - Release: manual Fastlane workflow
+
+## 14. How to run (text-only steps)
 - Environment prerequisites
 - Install dependencies
 - Open and build the project

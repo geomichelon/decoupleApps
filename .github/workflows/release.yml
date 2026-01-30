@@ -1,0 +1,51 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Target app (SuperApp/CatalogApp/CheckoutApp/ProfileApp)"
+        required: true
+        type: choice
+        options:
+          - SuperApp
+          - CatalogApp
+          - CheckoutApp
+          - ProfileApp
+      lane:
+        description: "Fastlane lane name"
+        required: true
+        type: string
+
+jobs:
+  release:
+    runs-on: macos-14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode 15.x
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '15.4'
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Run Fastlane
+        env:
+          # Required secrets (set in repo settings):
+          # APP_STORE_CONNECT_API_KEY_ID
+          # APP_STORE_CONNECT_API_ISSUER_ID
+          # APP_STORE_CONNECT_API_KEY
+          # MATCH_PASSWORD (if using match)
+          TARGET_APP: ${{ inputs.target }}
+        run: |
+          if [ ! -f "Gemfile" ]; then
+            echo "Gemfile not found. Add Fastlane configuration before running release." >&2
+            exit 1
+          fi
+          bundle exec fastlane "${{ inputs.lane }}"

@@ -5,22 +5,34 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 RESULTS_DIR="$ROOT_DIR/Tools/results"
 PROJECT="$ROOT_DIR/DecoupledApps-iOS.xcodeproj"
 SCHEME="${SCHEME:-SuperApp}"
-DESTINATION="${DESTINATION:-platform=iOS Simulator,name=iPhone 15}"
+DESTINATION="${DESTINATION:-generic/platform=iOS Simulator}"
 
-mkdir -p "$RESULTS_DIR"
+# Auto-detect a scheme if the default is not available
+if ! xcodebuild -list -project "$PROJECT" | grep -q " $SCHEME"; then
+  DETECTED_SCHEME=$(xcodebuild -list -project "$PROJECT" | awk '/Schemes:/{flag=1;next} /^$/{flag=0} flag{print $1; exit}')
+  if [[ -n "${DETECTED_SCHEME:-}" ]]; then
+    echo "Scheme '$SCHEME' not found. Using '$DETECTED_SCHEME' instead."
+    SCHEME="$DETECTED_SCHEME"
+  fi
+fi
+
 TS="$(date +%Y%m%d-%H%M%S)"
-OUT="$RESULTS_DIR/build-benchmark-$TS.txt"
+OUT_DIR="$RESULTS_DIR/$TS"
+mkdir -p "$OUT_DIR"
+
+LOG_FILE="$OUT_DIR/${SCHEME}-build.log"
 
 {
   echo "Benchmark timestamp: $TS"
   echo "Scheme: $SCHEME"
   echo "Destination: $DESTINATION"
   echo ""
-  echo "== xcodebuild (clean build) =="
-  /usr/bin/time -p xcodebuild -project "$PROJECT" -scheme "$SCHEME" -destination "$DESTINATION" clean build
-  echo ""
-  echo "== swift test (Modules) =="
-  /usr/bin/time -p swift test --package-path "$ROOT_DIR/Modules"
-} | tee "$OUT"
+  /usr/bin/time -p xcodebuild \
+    -project "$PROJECT" \
+    -scheme "$SCHEME" \
+    -destination "$DESTINATION" \
+    CODE_SIGNING_ALLOWED=NO \
+    clean build
+} | tee "$LOG_FILE"
 
-echo "Saved: $OUT"
+echo "Saved: $LOG_FILE"

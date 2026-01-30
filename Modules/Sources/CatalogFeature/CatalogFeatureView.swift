@@ -21,14 +21,14 @@ public struct CatalogFeatureView: View {
     }
 
     public var body: some View {
-        List {
+        let content = List {
             Section("Catalog") {
                 ForEach(items) { item in
                     VStack(alignment: .leading, spacing: 4) {
                         Text(item.title)
                             .font(.headline)
                         Text("$\(item.price)")
-                            .foregroundStyle(.secondary)
+                            .foregroundColor(.secondary)
                     }
                 }
             }
@@ -55,11 +55,17 @@ public struct CatalogFeatureView: View {
                 }
             }
         }
-        .listStyle(.insetGrouped)
-        .navigationTitle("Catalog")
         .onAppear {
             items = useCase.fetchItems()
         }
+
+        #if os(iOS)
+        return content
+            .listStyle(.insetGrouped)
+            .navigationTitle("Catalog")
+        #else
+        return content
+        #endif
     }
 }
 

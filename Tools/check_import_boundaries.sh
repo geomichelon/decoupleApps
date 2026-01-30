@@ -10,7 +10,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SOURCES_DIR="$ROOT_DIR/Modules/Sources"
 APPS_DIR="$ROOT_DIR/Apps"
 
-python3 - <<'PY'
+SOURCES_DIR="$SOURCES_DIR" APPS_DIR="$APPS_DIR" python3 - <<'PY'
 import os
 import re
 import sys

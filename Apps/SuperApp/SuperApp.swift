@@ -1,9 +1,11 @@
 // Author: George Michelon
 import SwiftUI
+import Combine
 import CatalogFeature
 import CheckoutFeature
 import ProfileFeature
 import SharedContracts
+import InfraAuth
 
 @main
 struct SuperApp: App {
@@ -28,9 +30,12 @@ private struct SuperAppRootView: View {
     var body: some View {
         TabView(selection: $selection) {
             CatalogFeatureView(
-                checkoutEntryPoint: SuperCheckoutEntryPoint(factory: checkoutFactory) {
-                    selection = .checkout
-                },
+                checkoutEntryPoint: SuperCheckoutEntryPoint(
+                    factory: checkoutFactory,
+                    authState: authStore,
+                    onCheckout: { selection = .checkout },
+                    onDenied: { selection = .profile }
+                ),
                 profileEntryPoint: SuperProfileEntryPoint {
                     selection = .profile
                 }
@@ -38,22 +43,40 @@ private struct SuperAppRootView: View {
                 .tabItem { Text("Catalog") }
                 .tag(SuperTab.catalog)
 
-            CheckoutFeatureView(context: checkoutFactory.lastContext ?? CheckoutContextDTO(items: [], source: "superapp"))
+            checkoutTab
                 .tabItem { Text("Checkout") }
                 .tag(SuperTab.checkout)
 
-            ProfileFeatureView(authState: authStore, authPublisher: authStore)
+            ProfileFeatureView(authStore: authStore)
                 .tabItem { Text("Profile") }
                 .tag(SuperTab.profile)
+        }
+    }
+
+    @ViewBuilder
+    private var checkoutTab: some View {
+        if !authStore.current.isAuthenticated {
+            SignInRequiredView(action: { selection = .profile })
+        } else if let context = checkoutFactory.lastContext {
+            CheckoutFeatureView(context: context)
+                .id(context)
+        } else {
+            CheckoutEmptyStateView()
         }
     }
 }
 
 private struct SuperCheckoutEntryPoint: CheckoutEntryPoint {
     let factory: CheckoutFeatureFactory
+    let authState: AuthStateProviding
     let onCheckout: () -> Void
+    let onDenied: () -> Void
 
     func startCheckout(with context: CheckoutContextDTO) {
+        guard authState.current.isAuthenticated else {
+            onDenied()
+            return
+        }
         factory.startCheckout(with: context)
         onCheckout()
     }
@@ -67,15 +90,32 @@ private struct SuperProfileEntryPoint: ProfileEntryPoint {
     }
 }
 
-private final class AuthStore: ObservableObject, AuthStateProviding, AuthEventPublishing {
-    @Published private(set) var current: AuthSnapshotDTO = .signedOut
+private struct SignInRequiredView: View {
+    let action: () -> Void
 
-    func publish(_ event: AuthEvent) {
-        switch event {
-        case .signedIn(let userID):
-            current = AuthSnapshotDTO(isAuthenticated: true, userID: userID)
-        case .signedOut:
-            current = .signedOut
+    var body: some View {
+        VStack(spacing: 16) {
+            Text("Sign in required")
+                .font(.headline)
+            Text("Please sign in from Profile to access Checkout.")
+                .foregroundStyle(.secondary)
+            Button("Go to Profile") {
+                action()
+            }
+            .buttonStyle(.borderedProminent)
         }
+        .padding(16)
+    }
+}
+
+private struct CheckoutEmptyStateView: View {
+    var body: some View {
+        VStack(spacing: 16) {
+            Text("No checkout in progress")
+                .font(.headline)
+            Text("Start a checkout from Catalog.")
+                .foregroundStyle(.secondary)
+        }
+        .padding(16)
     }
 }

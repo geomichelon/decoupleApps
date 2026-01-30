@@ -3,25 +3,20 @@ import SwiftUI
 import ProfileDomain
 import SharedContracts
 
-public struct ProfileFeatureView: View {
-    private let authState: AuthStateProviding
-    private let authPublisher: AuthEventPublishing
+public struct ProfileFeatureView<AuthStoreType>: View where AuthStoreType: ObservableObject & AuthStateProviding & AuthEventPublishing {
+    @ObservedObject private var authStore: AuthStoreType
     private let useCase: ProfileUseCase
 
-    @State private var snapshot: AuthSnapshotDTO
-
     public init(
-        authState: AuthStateProviding,
-        authPublisher: AuthEventPublishing,
+        authStore: AuthStoreType,
         useCase: ProfileUseCase = DefaultProfileUseCase()
     ) {
-        self.authState = authState
-        self.authPublisher = authPublisher
+        self.authStore = authStore
         self.useCase = useCase
-        _snapshot = State(initialValue: authState.current)
     }
 
     public var body: some View {
+        let snapshot = authStore.current
         VStack(spacing: 16) {
             if let profile = useCase.currentProfile(from: snapshot) {
                 Text("Signed in")
@@ -35,25 +30,20 @@ public struct ProfileFeatureView: View {
             }
 
             Button(snapshot.isAuthenticated ? "Sign out" : "Sign in") {
-                toggleAuth()
+                toggleAuth(isAuthenticated: snapshot.isAuthenticated)
             }
             .buttonStyle(.borderedProminent)
         }
         .padding(16)
         .navigationTitle("Profile")
-        .onAppear {
-            snapshot = authState.current
-        }
     }
 
-    private func toggleAuth() {
-        if snapshot.isAuthenticated {
-            authPublisher.publish(.signedOut)
-            snapshot = .signedOut
+    private func toggleAuth(isAuthenticated: Bool) {
+        if isAuthenticated {
+            authStore.publish(.signedOut)
         } else {
             let userID = "user-123"
-            authPublisher.publish(.signedIn(userID: userID))
-            snapshot = AuthSnapshotDTO(isAuthenticated: true, userID: userID)
+            authStore.publish(.signedIn(userID: userID))
         }
     }
 }
@@ -65,10 +55,9 @@ public final class ProfileFeatureFactory: ObservableObject, ProfileEntryPoint {
         // Composition root handles navigation for this entry point.
     }
 
-    public func makeView(
-        authState: AuthStateProviding,
-        authPublisher: AuthEventPublishing
-    ) -> ProfileFeatureView {
-        ProfileFeatureView(authState: authState, authPublisher: authPublisher)
+    public func makeView<AuthStoreType>(
+        authStore: AuthStoreType
+    ) -> ProfileFeatureView<AuthStoreType> where AuthStoreType: ObservableObject & AuthStateProviding & AuthEventPublishing {
+        ProfileFeatureView(authStore: authStore)
     }
 }

@@ -1,0 +1,23 @@
+{
+  "groups": {
+    "Feature": ".*Feature$",
+    "Domain": ".*Domain$",
+    "Infra": "^Infra",
+    "UI": "^DesignSystem$",
+    "Contracts": "^SharedContracts$",
+    "Core": "^Core$"
+  },
+  "overrides": {
+    "DesignSystem": "UI",
+    "SharedContracts": "Contracts",
+    "Core": "Core"
+  },
+  "allow": {
+    "Feature": ["Domain", "Contracts", "UI"],
+    "Domain": ["Contracts"],
+    "Infra": ["Domain", "Contracts", "Core"],
+    "UI": [],
+    "Contracts": [],
+    "Core": []
+  }
+}

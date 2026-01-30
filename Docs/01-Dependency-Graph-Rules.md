@@ -35,6 +35,21 @@
 - Dependency budget per module
 - Mandatory review for new dependencies
 
+## Tooling
+Scripts live in `Tools/`:
+- `check_spm_dependency_rules.sh` — validates SPM target dependencies against `Tools/dependency-rules.yml`.
+- `check_import_boundaries.sh` — scans `Modules/Sources` for forbidden imports by layer/BU.
+- `gen_dependency_graph.sh` — generates `Docs/diagrams/dependency-graph.mmd`.
+
+Run locally:
+- `bash Tools/check_spm_dependency_rules.sh`
+- `bash Tools/check_import_boundaries.sh`
+- `bash Tools/gen_dependency_graph.sh`
+
+Interpretation:
+- Any non‑zero exit means a rule violation.
+- Violations must be fixed before merge.
+
 ## Violation signals
 - Fast growth of SharedContracts
 - “Utility” modules becoming hubs

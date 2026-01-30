@@ -11,6 +11,9 @@
 - **DTOs**: minimal, stable data between modules
 - **Events**: domain facts for async integration
 
+## Preconditions
+- `CheckoutEntryPoint` must only be invoked when authenticated.
+
 ## Location
 - Public contracts live in `Domain/SharedContracts`
 - No dependencies on Feature, Infra, or UI

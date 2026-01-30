@@ -9,8 +9,6 @@ public struct CatalogFeatureView: View {
     private let profileEntryPoint: ProfileEntryPoint
 
     @State private var items: [CatalogItem] = []
-    @State private var didTriggerCheckout = false
-    @State private var didTriggerProfile = false
 
     public init(
         useCase: CatalogUseCase = DefaultCatalogUseCase(),
@@ -47,7 +45,6 @@ public struct CatalogFeatureView: View {
                     }
                     let context = CheckoutContextDTO(items: lineItems, source: "catalog")
                     checkoutEntryPoint.startCheckout(with: context)
-                    didTriggerCheckout = true
                 }
                 .disabled(items.isEmpty)
             }
@@ -55,7 +52,6 @@ public struct CatalogFeatureView: View {
             Section {
                 Button("Go to Profile") {
                     profileEntryPoint.showProfile()
-                    didTriggerProfile = true
                 }
             }
         }
@@ -63,16 +59,6 @@ public struct CatalogFeatureView: View {
         .navigationTitle("Catalog")
         .onAppear {
             items = useCase.fetchItems()
-        }
-        .alert("Checkout started", isPresented: $didTriggerCheckout) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text("The checkout flow was triggered via entry point.")
-        }
-        .alert("Profile opened", isPresented: $didTriggerProfile) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text("The profile flow was triggered via entry point.")
         }
     }
 }

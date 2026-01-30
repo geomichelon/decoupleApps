@@ -13,6 +13,7 @@
 - Dependencies always point toward Domain
 - Composition Root as the single assembly point
 - Incremental evolution (strangler)
+- Composition roots enforce auth gating policies (e.g., checkout requires auth)
 
 ## Layers
 - **Feature**: UI orchestration and use cases
@@ -45,3 +46,4 @@
 - Dependency manager: Swift Package Manager (SPM) with a local package in the repo.
 - “Core” is a technical utility module, not business logic.
 - New app targets coexist with the legacy target during migration.
+- AuthStore is implemented in InfraAuth as an infrastructure implementation of auth contracts.

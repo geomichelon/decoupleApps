@@ -32,6 +32,23 @@
 - Docs: full tables + screenshots + logs
 - Separate scenarios (clean, incremental, link, scripts)
 
+## Tooling
+Scripts live in `Tools/`:
+- `benchmark_build.sh` — captures build/test timings into `Tools/results/`.
+- `run_tests.sh` — runs SPM tests (and optional Xcode tests).
+
+Run locally:
+- `bash Tools/benchmark_build.sh`
+- `bash Tools/run_tests.sh`
+
+Environment overrides:
+- `SCHEME=SuperApp DESTINATION='platform=iOS Simulator,name=iPhone 15' bash Tools/benchmark_build.sh`
+- `RUN_XCODEBUILD=1 SCHEME=SuperApp DESTINATION='platform=iOS Simulator,name=iPhone 15' bash Tools/run_tests.sh`
+
+Results:
+- Files are stored under `Tools/results/` with timestamped names.
+- Commit results only if you intend to share benchmarks.
+
 ## Arm traps
 - Giant shared modules
 - Too many dynamic frameworks

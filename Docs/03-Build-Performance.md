@@ -36,10 +36,12 @@
 Scripts live in `Tools/`:
 - `benchmark_build.sh` — captures build timings into `Tools/results/<timestamp>/`.
 - `run_tests.sh` — runs fast SPM tests.
+- `tuist_build.sh` — optional build path via Tuist-generated workspace.
 
 Run locally:
 - `bash Tools/benchmark_build.sh`
 - `bash Tools/run_tests.sh`
+- `bash Tools/tuist_build.sh` (optional)
 
 Environment overrides:
 - `SCHEME=SuperApp DESTINATION='generic/platform=iOS Simulator' bash Tools/benchmark_build.sh`
@@ -48,6 +50,14 @@ Results:
 - Files are stored under `Tools/results/` with timestamped names.
 - Commit results only if you intend to share benchmarks.
 - If the scheme name is not found, the script auto-detects the first scheme via `xcodebuild -list`.
+
+## Tuist-based builds (optional)
+- Purpose: validate an alternate project generation path without changing the dependency graph.
+- Source of truth remains SPM (`Modules/Package.swift`).
+- Use for comparative measurements only:
+  - `bash Tools/tuist_bootstrap.sh`
+  - `bash Tools/tuist_generate.sh`
+  - `bash Tools/tuist_build.sh`
 
 ## Metrics Table (placeholder)
 

@@ -47,3 +47,5 @@
 - “Core” is a technical utility module, not business logic.
 - New app targets coexist with the legacy target during migration.
 - AuthStore is implemented in InfraAuth as an infrastructure implementation of auth contracts.
+- Tuist project uses placeholder bundle IDs (`com.decoupledapps.*`) and a separate workspace name to avoid clobbering the existing Xcode project.
+- SwiftPM declares macOS 12 to allow `swift test` to compile SwiftUI targets on macOS.

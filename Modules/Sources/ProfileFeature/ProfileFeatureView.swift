@@ -17,25 +17,43 @@ public struct ProfileFeatureView<AuthStoreType>: View where AuthStoreType: Obser
 
     public var body: some View {
         let snapshot = authStore.current
-        VStack(spacing: 16) {
+        let content = VStack(spacing: 16) {
             if let profile = useCase.currentProfile(from: snapshot) {
                 Text("Signed in")
                     .font(.headline)
                 Text("Hello, \(profile.displayName)")
-                    .foregroundStyle(.secondary)
+                    .foregroundColor(.secondary)
             } else {
                 Text("Signed out")
                     .font(.headline)
-                    .foregroundStyle(.secondary)
+                    .foregroundColor(.secondary)
             }
 
-            Button(snapshot.isAuthenticated ? "Sign out" : "Sign in") {
-                toggleAuth(isAuthenticated: snapshot.isAuthenticated)
-            }
-            .buttonStyle(.borderedProminent)
+            actionButton(isAuthenticated: snapshot.isAuthenticated)
         }
         .padding(16)
-        .navigationTitle("Profile")
+
+        #if os(iOS)
+        return content
+            .navigationTitle("Profile")
+        #else
+        return content
+        #endif
+    }
+
+    @ViewBuilder
+    private func actionButton(isAuthenticated: Bool) -> some View {
+        let label = isAuthenticated ? "Sign out" : "Sign in"
+        #if os(iOS)
+        Button(label) {
+            toggleAuth(isAuthenticated: isAuthenticated)
+        }
+        .buttonStyle(.borderedProminent)
+        #else
+        Button(label) {
+            toggleAuth(isAuthenticated: isAuthenticated)
+        }
+        #endif
     }
 
     private func toggleAuth(isAuthenticated: Bool) {

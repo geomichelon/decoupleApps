@@ -1,0 +1,97 @@
+# frozen_string_literal: true
+
+require "base64"
+
+# Fastlane setup for TestFlight releases (manual trigger via GitHub Actions)
+# - Configure bundle identifiers per target below.
+# - Match is the default signing strategy (recommended).
+#   Set MATCH_GIT_URL and MATCH_PASSWORD in secrets.
+# - To use manual signing, remove/disable `match` and provide export options.
+
+default_platform(:ios)
+
+APP_IDENTIFIERS = {
+  "superapp" => "com.example.superapp",
+  "catalog" => "com.example.catalog",
+  "checkout" => "com.example.checkout",
+  "profile" => "com.example.profile"
+}.freeze
+
+SCHEMES = {
+  "superapp" => "SuperApp",
+  "catalog" => "CatalogApp",
+  "checkout" => "CheckoutApp",
+  "profile" => "ProfileApp"
+}.freeze
+
+platform :ios do
+  desc "Upload SuperApp to TestFlight"
+  lane :beta_superapp do |options|
+    run_beta_release(target: "superapp", options: options)
+  end
+
+  desc "Upload CatalogApp to TestFlight"
+  lane :beta_catalog do |options|
+    run_beta_release(target: "catalog", options: options)
+  end
+
+  desc "Upload CheckoutApp to TestFlight"
+  lane :beta_checkout do |options|
+    run_beta_release(target: "checkout", options: options)
+  end
+
+  desc "Upload ProfileApp to TestFlight"
+  lane :beta_profile do |options|
+    run_beta_release(target: "profile", options: options)
+  end
+end
+
+def run_beta_release(target:, options: {})
+  app_identifier = APP_IDENTIFIERS.fetch(target)
+  scheme = SCHEMES.fetch(target)
+
+  # App Store Connect API key (preferred)
+  key_content = ENV["APP_STORE_CONNECT_API_KEY"]
+  if key_content && !key_content.include?("BEGIN PRIVATE KEY")
+    begin
+      decoded = Base64.decode64(key_content)
+      key_content = decoded if decoded.include?("BEGIN PRIVATE KEY")
+    rescue StandardError
+      # fallback to original content
+    end
+  end
+
+  api_key = app_store_connect_api_key(
+    key_id: ENV["APP_STORE_CONNECT_API_KEY_ID"],
+    issuer_id: ENV["APP_STORE_CONNECT_API_ISSUER_ID"],
+    key_content: key_content
+  )
+
+  # Signing (default: match)
+  # Configure:
+  #   MATCH_GIT_URL, MATCH_PASSWORD, MATCH_READONLY=true
+  match(
+    type: "appstore",
+    app_identifier: app_identifier,
+    readonly: ENV.fetch("MATCH_READONLY", "true") == "true",
+    git_url: ENV["MATCH_GIT_URL"],
+    api_key: api_key
+  )
+
+  # Deterministic build number for CI
+  build_number = options[:build_number] || ENV["GITHUB_RUN_NUMBER"] || Time.now.utc.strftime("%Y%m%d%H%M")
+  increment_build_number(build_number: build_number)
+
+  gym(
+    scheme: scheme,
+    export_method: "app-store",
+    clean: true
+  )
+
+  pilot(
+    api_key: api_key,
+    app_identifier: app_identifier,
+    skip_waiting_for_build_processing: true,
+    changelog: options[:release_notes]
+  )
+end

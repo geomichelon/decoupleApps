@@ -66,6 +66,31 @@ jobs:
           name: dependency-graph
           path: Docs/diagrams/dependency-graph.mmd
 
+  tuist_validation:
+    if: github.event_name == 'pull_request'
+    needs: pr-checks
+    runs-on: macos-14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode 15.x
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '15.4'
+
+      - name: Ensure scripts are executable
+        run: chmod +x Tools/*.sh
+
+      - name: Tuist bootstrap
+        run: bash Tools/tuist_bootstrap.sh
+
+      - name: Tuist generate
+        run: bash Tools/tuist_generate.sh
+
+      - name: Tuist build (SuperApp)
+        run: SCHEME=SuperApp bash Tools/tuist_build.sh
+
   main_gates:
     if: github.event_name == 'push'
     runs-on: macos-14

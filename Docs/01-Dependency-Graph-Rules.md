@@ -41,6 +41,10 @@ Scripts live in `Tools/`:
 - `check_import_boundaries.sh` — scans `Modules/Sources` for forbidden imports by layer/BU.
 - `gen_dependency_graph.sh` — generates `Docs/diagrams/dependency-graph.mmd`.
 
+### Source of truth
+- `Modules/Package.swift` (SPM) is the **single source of truth** for module dependencies.
+- Tuist is used **only** to generate workspaces/projects/schemes for apps.
+
 Run locally:
 - `bash Tools/check_spm_dependency_rules.sh`
 - `bash Tools/check_import_boundaries.sh`

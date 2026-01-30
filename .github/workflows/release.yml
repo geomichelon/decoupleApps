@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       target:
-        description: "Target app (SuperApp/CatalogApp/CheckoutApp/ProfileApp)"
+        description: "Target app"
         required: true
         type: choice
         options:
@@ -13,8 +13,13 @@ on:
           - CheckoutApp
           - ProfileApp
       lane:
-        description: "Fastlane lane name"
-        required: true
+        description: "Fastlane lane name (leave as auto to map by target)"
+        required: false
+        default: auto
+        type: string
+      release_notes:
+        description: "Optional release notes"
+        required: false
         type: string
 
 jobs:
@@ -35,17 +40,56 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
+      - name: Validate secrets
+        env:
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+          MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        run: |
+          missing=()
+          [[ -z "$APP_STORE_CONNECT_API_KEY_ID" ]] && missing+=("APP_STORE_CONNECT_API_KEY_ID")
+          [[ -z "$APP_STORE_CONNECT_API_ISSUER_ID" ]] && missing+=("APP_STORE_CONNECT_API_ISSUER_ID")
+          [[ -z "$APP_STORE_CONNECT_API_KEY" ]] && missing+=("APP_STORE_CONNECT_API_KEY")
+          [[ -z "$MATCH_GIT_URL" ]] && missing+=("MATCH_GIT_URL")
+          [[ -z "$MATCH_PASSWORD" ]] && missing+=("MATCH_PASSWORD")
+
+          if [[ ${#missing[@]} -ne 0 ]]; then
+            echo "Missing required secrets: ${missing[*]}" >&2
+            echo "Configure secrets in GitHub: APP_STORE_CONNECT_API_KEY_ID, APP_STORE_CONNECT_API_ISSUER_ID, APP_STORE_CONNECT_API_KEY, MATCH_GIT_URL, MATCH_PASSWORD" >&2
+            exit 1
+          fi
+
       - name: Run Fastlane
         env:
-          # Required secrets (set in repo settings):
-          # APP_STORE_CONNECT_API_KEY_ID
-          # APP_STORE_CONNECT_API_ISSUER_ID
-          # APP_STORE_CONNECT_API_KEY
-          # MATCH_PASSWORD (if using match)
-          TARGET_APP: ${{ inputs.target }}
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+          MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_READONLY: "true"
         run: |
           if [ ! -f "Gemfile" ]; then
             echo "Gemfile not found. Add Fastlane configuration before running release." >&2
             exit 1
           fi
-          bundle exec fastlane "${{ inputs.lane }}"
+
+          case "${{ inputs.target }}" in
+            SuperApp) default_lane="beta_superapp" ;;
+            CatalogApp) default_lane="beta_catalog" ;;
+            CheckoutApp) default_lane="beta_checkout" ;;
+            ProfileApp) default_lane="beta_profile" ;;
+            *) echo "Unknown target" >&2; exit 1 ;;
+          esac
+
+          lane="${{ inputs.lane }}"
+          if [[ -z "$lane" || "$lane" == "auto" ]]; then
+            lane="$default_lane"
+          fi
+
+          if [[ -n "${{ inputs.release_notes }}" ]]; then
+            bundle exec fastlane "$lane" release_notes:"${{ inputs.release_notes }}"
+          else
+            bundle exec fastlane "$lane"
+          fi

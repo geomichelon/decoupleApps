@@ -44,3 +44,26 @@
 
 ## Notes
 - Checkout view uses `.id(context)` at the composition root to recreate the view model on new checkout sessions.
+
+## Tuist Introduction Checklist
+
+### Conformance
+- [ ] SPM remains the source of truth for module dependencies (`Modules/Package.swift`).
+- [ ] Tuist only generates workspace/projects/schemes for existing apps.
+- [ ] No module structure or layering changes.
+- [ ] CI path based on SPM remains unchanged.
+
+### Minimal changes
+- [ ] Added `Project.swift`/`Workspace.swift` without duplicating modules.
+- [ ] App targets depend on SPM products (no Tuist targets for modules).
+- [ ] Tuist scripts are additive and optional.
+
+### Files to change (Tuist)
+- `Tuist.swift` — generation settings.
+- `Tuist/Dependencies.swift` — empty SPM dependencies (no external packages).
+- `Project.swift` / `Workspace.swift` — app targets + workspace only.
+- `Tools/tuist_*.sh` — bootstrap, generate, build.
+- `.github/workflows/ci.yml` — optional Tuist validation job.
+- `Docs/01-Dependency-Graph-Rules.md` — SPM source of truth.
+- `Docs/03-Build-Performance.md` — optional Tuist build path.
+- `README.md` — SPM vs Tuist section + commands.

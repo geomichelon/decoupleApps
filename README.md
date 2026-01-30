@@ -17,8 +17,9 @@ Author: George Michelon
 10. Tests and governance
 11. Roadmap
 12. Trade-offs FAQ
-13. Development workflow
-14. How to run
+13. SPM vs Tuist (project generation)
+14. Development workflow
+15. How to run
 
 ## 1. Context and problem (thousands of modules / agility)
 - Super-app scenario: scope, team, and dependency growth
@@ -312,7 +313,19 @@ Author: George Michelon
 - Script phases and build impact
 - App size and linking implications
 
-## 13. Development workflow
+## 13. SPM vs Tuist (project generation)
+- **SPM remains the source of truth** for modules and dependency graph (`Modules/Package.swift`).
+- **Tuist is optional** and only generates workspace/projects/schemes for app targets.
+- No module duplication in Tuist; app targets depend on SPM products.
+- Use Tuist for faster/consistent project generation without changing architecture.
+- Commands:
+  - `bash Tools/tuist_bootstrap.sh`
+  - `bash Tools/tuist_generate.sh`
+  - `bash Tools/tuist_build.sh`
+- Generated workspace: `DecoupledApps-iOS-Tuist.xcworkspace`
+- Bootstrap installs Tuist via Homebrew if missing (`brew install --cask tuist`).
+
+## 14. Development workflow
 - Run architecture checks:
   - `bash Tools/check_spm_dependency_rules.sh`
   - `bash Tools/check_import_boundaries.sh`
@@ -330,7 +343,7 @@ Author: George Michelon
   - Main: parallel builds + log artifacts
   - Release: manual Fastlane workflow
 
-## 14. How to run (text-only steps)
+## 15. How to run (text-only steps)
 - Environment prerequisites
 - Install dependencies
 - Open and build the project

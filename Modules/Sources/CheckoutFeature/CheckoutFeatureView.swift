@@ -11,7 +11,7 @@ public struct CheckoutFeatureView: View {
     }
 
     public var body: some View {
-        List {
+        let content = List {
             Section("Items") {
                 ForEach(viewModel.items) { item in
                     HStack {
@@ -19,7 +19,7 @@ public struct CheckoutFeatureView: View {
                             Text(item.name)
                                 .font(.headline)
                             Text("$\(item.price)")
-                                .foregroundStyle(.secondary)
+                                .foregroundColor(.secondary)
                         }
                         Spacer()
                         Stepper(
@@ -46,13 +46,19 @@ public struct CheckoutFeatureView: View {
                 .disabled(viewModel.items.isEmpty)
             }
         }
-        .listStyle(.insetGrouped)
-        .navigationTitle("Checkout")
-        .alert("Order placed", isPresented: $viewModel.showOrderAlert) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text("This is a placeholder checkout flow.")
-        }
+
+        #if os(iOS)
+        return content
+            .listStyle(.insetGrouped)
+            .navigationTitle("Checkout")
+            .alert("Order placed", isPresented: $viewModel.showOrderAlert) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text("This is a placeholder checkout flow.")
+            }
+        #else
+        return content
+        #endif
     }
 
     private func binding(for item: CartItem) -> Binding<Int> {

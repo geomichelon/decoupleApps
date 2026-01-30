@@ -19,6 +19,9 @@ jobs:
         with:
           xcode-version: '15.4'
 
+      - name: Ensure scripts are executable
+        run: chmod +x Tools/*.sh
+
       - name: Cache SwiftPM
         uses: actions/cache@v4
         with:
@@ -44,6 +47,9 @@ jobs:
 
       - name: Checkout gating/bypass check
         run: bash Tools/check_checkout_bypass.sh
+
+      - name: Contract deprecation policy check
+        run: bash Tools/check_contract_deprecation_policy.sh
 
       - name: SPM tests
         run: bash Tools/run_tests.sh

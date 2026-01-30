@@ -40,3 +40,8 @@
 - `03-Build-Performance.md`
 - `04-Migration-Plan.md`
 - `05-Ownership-and-Governance.md`
+
+## Assumptions
+- Gerenciador de dependências: Swift Package Manager (SPM) com pacote local no repositório.
+- “Core” é um módulo técnico (infraestrutural) de utilitários básicos, sem regras de negócio.
+- Targets de apps coexistem com o target legado atual até a migração completa.

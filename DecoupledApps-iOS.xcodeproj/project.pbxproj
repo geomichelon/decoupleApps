@@ -6,6 +6,26 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		06492F651322B2D34F961563 /* CatalogFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 722019AD4DF59F51BE3D1804 /* CatalogFeature */; };
+		A4EDBECC087B80C6BCA81E8D /* CheckoutFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 4449DD2FEA42C3E050022A5F /* CheckoutFeature */; };
+		1E116ACA53AF45B67235F864 /* ProfileFeature in Frameworks */ = {isa = PBXBuildFile; productRef = BF1F8AB458DBF95074FF3754 /* ProfileFeature */; };
+		8695EE0581E304CF20B2A4A5 /* SharedContracts in Frameworks */ = {isa = PBXBuildFile; productRef = 1A41CC3EE1EE62BD663FE762 /* SharedContracts */; };
+		468D4E6629E4296E972E1ADC /* InfraAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 248BB53FB521A0582F6AB7E4 /* InfraAuth */; };
+		3C3FEC073081ECDB21A6CD1D /* CatalogDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 2B261CBE7583F2856D40480E /* CatalogDomain */; };
+		8BB3E4805BA1637F205159B4 /* CheckoutDomain in Frameworks */ = {isa = PBXBuildFile; productRef = CCB80DF32AD42380C707A3BB /* CheckoutDomain */; };
+		D5D3D91E8AD1A2A8C4048F54 /* CatalogFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 722019AD4DF59F51BE3D1804 /* CatalogFeature */; };
+		39C48DB0BB8E1A5DC9E838D5 /* SharedContracts in Frameworks */ = {isa = PBXBuildFile; productRef = 1A41CC3EE1EE62BD663FE762 /* SharedContracts */; };
+		59463C6885E55787761E8A20 /* CatalogDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 2B261CBE7583F2856D40480E /* CatalogDomain */; };
+		4B6D9C2256EDFE2D762B4D22 /* CheckoutFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 4449DD2FEA42C3E050022A5F /* CheckoutFeature */; };
+		B9018C034DE31D7C3BF8F285 /* SharedContracts in Frameworks */ = {isa = PBXBuildFile; productRef = 1A41CC3EE1EE62BD663FE762 /* SharedContracts */; };
+		1FFB3772A9D00C29460B094A /* InfraAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 248BB53FB521A0582F6AB7E4 /* InfraAuth */; };
+		EE86AFF16DD2FF51E375717A /* CheckoutDomain in Frameworks */ = {isa = PBXBuildFile; productRef = CCB80DF32AD42380C707A3BB /* CheckoutDomain */; };
+		DAD61A792D60A9C09A76586C /* ProfileFeature in Frameworks */ = {isa = PBXBuildFile; productRef = BF1F8AB458DBF95074FF3754 /* ProfileFeature */; };
+		7952F9315CB9E5F293D08A30 /* SharedContracts in Frameworks */ = {isa = PBXBuildFile; productRef = 1A41CC3EE1EE62BD663FE762 /* SharedContracts */; };
+		39ED05FDF66CD8C77A60D651 /* InfraAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 248BB53FB521A0582F6AB7E4 /* InfraAuth */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		909CB0452F2D3FD900125F08 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +47,10 @@
 		909CB0352F2D3FD700125F08 /* DecoupledApps-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DecoupledApps-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		909CB0442F2D3FD900125F08 /* DecoupledApps-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DecoupledApps-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		909CB04E2F2D3FD900125F08 /* DecoupledApps-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DecoupledApps-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0DE0A5E75FDDE82FEF6819A /* SuperApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C83BC57EC276FEB74EC4E43 /* CatalogApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatalogApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D371F1E6BA2951C4D5CCB41F /* CheckoutApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckoutApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB23907FECEE229AD8558228 /* ProfileApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProfileApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -43,6 +67,26 @@
 		909CB0512F2D3FD900125F08 /* DecoupledApps-iOSUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "DecoupledApps-iOSUITests";
+			sourceTree = "<group>";
+		};
+		29B2A324D80D6500C6917FC7 /* SuperApp */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Apps/SuperApp";
+			sourceTree = "<group>";
+		};
+		912BC8DE9B0608A80E4677C7 /* CatalogApp */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Apps/CatalogApp";
+			sourceTree = "<group>";
+		};
+		E6989040F67B8ACFB71DDB61 /* CheckoutApp */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Apps/CheckoutApp";
+			sourceTree = "<group>";
+		};
+		583EB836CBB6160EF2C0F8CF /* ProfileApp */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Apps/ProfileApp";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -69,17 +113,74 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		27ED60CE0D5F5A46B2665668 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06492F651322B2D34F961563 /* CatalogFeature in Frameworks */,
+				A4EDBECC087B80C6BCA81E8D /* CheckoutFeature in Frameworks */,
+				1E116ACA53AF45B67235F864 /* ProfileFeature in Frameworks */,
+				8695EE0581E304CF20B2A4A5 /* SharedContracts in Frameworks */,
+				468D4E6629E4296E972E1ADC /* InfraAuth in Frameworks */,
+				3C3FEC073081ECDB21A6CD1D /* CatalogDomain in Frameworks */,
+				8BB3E4805BA1637F205159B4 /* CheckoutDomain in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B827594998F27BE9048D11AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5D3D91E8AD1A2A8C4048F54 /* CatalogFeature in Frameworks */,
+				39C48DB0BB8E1A5DC9E838D5 /* SharedContracts in Frameworks */,
+				59463C6885E55787761E8A20 /* CatalogDomain in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE5BD33F4C2563E5053D47A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B6D9C2256EDFE2D762B4D22 /* CheckoutFeature in Frameworks */,
+				B9018C034DE31D7C3BF8F285 /* SharedContracts in Frameworks */,
+				1FFB3772A9D00C29460B094A /* InfraAuth in Frameworks */,
+				EE86AFF16DD2FF51E375717A /* CheckoutDomain in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E70B8AA70773806AB84872D1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAD61A792D60A9C09A76586C /* ProfileFeature in Frameworks */,
+				7952F9315CB9E5F293D08A30 /* SharedContracts in Frameworks */,
+				39ED05FDF66CD8C77A60D651 /* InfraAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		909CB02C2F2D3FD700125F08 = {
 			isa = PBXGroup;
 			children = (
+				9AF3666606C4E25C1B3F24A9 /* Apps */,
 				909CB0372F2D3FD700125F08 /* DecoupledApps-iOS */,
 				909CB0472F2D3FD900125F08 /* DecoupledApps-iOSTests */,
 				909CB0512F2D3FD900125F08 /* DecoupledApps-iOSUITests */,
 				909CB0362F2D3FD700125F08 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		9AF3666606C4E25C1B3F24A9 /* Apps */ = {
+			isa = PBXGroup;
+			children = (
+				29B2A324D80D6500C6917FC7 /* SuperApp */,
+				912BC8DE9B0608A80E4677C7 /* CatalogApp */,
+				E6989040F67B8ACFB71DDB61 /* CheckoutApp */,
+				583EB836CBB6160EF2C0F8CF /* ProfileApp */,
+			);
+			name = Apps;
 			sourceTree = "<group>";
 		};
 		909CB0362F2D3FD700125F08 /* Products */ = {
@@ -88,6 +189,10 @@
 				909CB0352F2D3FD700125F08 /* DecoupledApps-iOS.app */,
 				909CB0442F2D3FD900125F08 /* DecoupledApps-iOSTests.xctest */,
 				909CB04E2F2D3FD900125F08 /* DecoupledApps-iOSUITests.xctest */,
+				D0DE0A5E75FDDE82FEF6819A /* SuperApp.app */,
+				1C83BC57EC276FEB74EC4E43 /* CatalogApp.app */,
+				D371F1E6BA2951C4D5CCB41F /* CheckoutApp.app */,
+				BB23907FECEE229AD8558228 /* ProfileApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,6 +220,111 @@
 			);
 			productName = "DecoupledApps-iOS";
 			productReference = 909CB0352F2D3FD700125F08 /* DecoupledApps-iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CB9A5DE8C71A173DE151F0AA /* SuperApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1C390F687E5B24990A5CBAE /* Build configuration list for PBXNativeTarget "SuperApp" */;
+			buildPhases = (
+				17F19F8E141A09CD81FF8E42 /* Sources */,
+				27ED60CE0D5F5A46B2665668 /* Frameworks */,
+				D05BA677694CCD94D9D31D67 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				29B2A324D80D6500C6917FC7 /* SuperApp */,
+			);
+			name = SuperApp;
+			packageProductDependencies = (
+				722019AD4DF59F51BE3D1804 /* CatalogFeature */,
+				4449DD2FEA42C3E050022A5F /* CheckoutFeature */,
+				BF1F8AB458DBF95074FF3754 /* ProfileFeature */,
+				1A41CC3EE1EE62BD663FE762 /* SharedContracts */,
+				248BB53FB521A0582F6AB7E4 /* InfraAuth */,
+				2B261CBE7583F2856D40480E /* CatalogDomain */,
+				CCB80DF32AD42380C707A3BB /* CheckoutDomain */,
+			);
+			productName = SuperApp;
+			productReference = D0DE0A5E75FDDE82FEF6819A /* SuperApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CF6CD32F865B52D3867CB138 /* CatalogApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCC40F0F3D11CB744FC4D7D8 /* Build configuration list for PBXNativeTarget "CatalogApp" */;
+			buildPhases = (
+				71C7A5DC20D9575A5197A375 /* Sources */,
+				B827594998F27BE9048D11AF /* Frameworks */,
+				599442D2F70BCC9A256D5C33 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				912BC8DE9B0608A80E4677C7 /* CatalogApp */,
+			);
+			name = CatalogApp;
+			packageProductDependencies = (
+				722019AD4DF59F51BE3D1804 /* CatalogFeature */,
+				1A41CC3EE1EE62BD663FE762 /* SharedContracts */,
+				2B261CBE7583F2856D40480E /* CatalogDomain */,
+			);
+			productName = CatalogApp;
+			productReference = 1C83BC57EC276FEB74EC4E43 /* CatalogApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4F992ED9B4E32F8DF0FE38E3 /* CheckoutApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB099FB7B79A1CB3C75B7977 /* Build configuration list for PBXNativeTarget "CheckoutApp" */;
+			buildPhases = (
+				9455AADEC3391DBD4D8064D8 /* Sources */,
+				BE5BD33F4C2563E5053D47A2 /* Frameworks */,
+				7109FC1B2507A34A7A7BEDBD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				E6989040F67B8ACFB71DDB61 /* CheckoutApp */,
+			);
+			name = CheckoutApp;
+			packageProductDependencies = (
+				4449DD2FEA42C3E050022A5F /* CheckoutFeature */,
+				1A41CC3EE1EE62BD663FE762 /* SharedContracts */,
+				248BB53FB521A0582F6AB7E4 /* InfraAuth */,
+				CCB80DF32AD42380C707A3BB /* CheckoutDomain */,
+			);
+			productName = CheckoutApp;
+			productReference = D371F1E6BA2951C4D5CCB41F /* CheckoutApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3245C9C626F64B81C2FE30DD /* ProfileApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9CE71D63A893CBD4A939F6BC /* Build configuration list for PBXNativeTarget "ProfileApp" */;
+			buildPhases = (
+				307CBCC203F76394578CAE14 /* Sources */,
+				E70B8AA70773806AB84872D1 /* Frameworks */,
+				55E706B621F607899214E0E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				583EB836CBB6160EF2C0F8CF /* ProfileApp */,
+			);
+			name = ProfileApp;
+			packageProductDependencies = (
+				BF1F8AB458DBF95074FF3754 /* ProfileFeature */,
+				1A41CC3EE1EE62BD663FE762 /* SharedContracts */,
+				248BB53FB521A0582F6AB7E4 /* InfraAuth */,
+			);
+			productName = ProfileApp;
+			productReference = BB23907FECEE229AD8558228 /* ProfileApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 		909CB0432F2D3FD900125F08 /* DecoupledApps-iOSTests */ = {
@@ -195,6 +405,9 @@
 			);
 			mainGroup = 909CB02C2F2D3FD700125F08;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F6F16BAAD348A5EFBB00C146 /* Modules */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 909CB0362F2D3FD700125F08 /* Products */;
 			projectDirPath = "";
@@ -203,6 +416,10 @@
 				909CB0342F2D3FD700125F08 /* DecoupledApps-iOS */,
 				909CB0432F2D3FD900125F08 /* DecoupledApps-iOSTests */,
 				909CB04D2F2D3FD900125F08 /* DecoupledApps-iOSUITests */,
+				CB9A5DE8C71A173DE151F0AA /* SuperApp */,
+				CF6CD32F865B52D3867CB138 /* CatalogApp */,
+				4F992ED9B4E32F8DF0FE38E3 /* CheckoutApp */,
+				3245C9C626F64B81C2FE30DD /* ProfileApp */,
 			);
 		};
 /* End PBXProject section */
@@ -229,6 +446,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D05BA677694CCD94D9D31D67 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		599442D2F70BCC9A256D5C33 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7109FC1B2507A34A7A7BEDBD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55E706B621F607899214E0E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -247,6 +492,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		909CB04A2F2D3FD900125F08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17F19F8E141A09CD81FF8E42 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71C7A5DC20D9575A5197A375 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9455AADEC3391DBD4D8064D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		307CBCC203F76394578CAE14 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -575,6 +848,358 @@
 			};
 			name = Release;
 		};
+		2C6C9842D29FF2F20B5EFE9A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FTEQK3TWGX;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.geomichelon.SuperApp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		209B2D6F5A722FAA13465EA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FTEQK3TWGX;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.geomichelon.SuperApp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
+		151107AFDD2D6D81ACF6521C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FTEQK3TWGX;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.geomichelon.CatalogApp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		663AC4E88182CF5CAF6EA5B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FTEQK3TWGX;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.geomichelon.CatalogApp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
+		B4F42ED541DBA63AD4E9D881 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FTEQK3TWGX;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.geomichelon.CheckoutApp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		728D646929139CB6E95CB23F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FTEQK3TWGX;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.geomichelon.CheckoutApp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
+		153A2429A0C3186E6655BBBC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FTEQK3TWGX;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.geomichelon.ProfileApp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		78A59C32C5FB0FBA78ECE39B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FTEQK3TWGX;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.geomichelon.ProfileApp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -614,7 +1239,88 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		B1C390F687E5B24990A5CBAE /* Build configuration list for PBXNativeTarget "SuperApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C6C9842D29FF2F20B5EFE9A /* Debug */,
+				209B2D6F5A722FAA13465EA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CCC40F0F3D11CB744FC4D7D8 /* Build configuration list for PBXNativeTarget "CatalogApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				151107AFDD2D6D81ACF6521C /* Debug */,
+				663AC4E88182CF5CAF6EA5B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB099FB7B79A1CB3C75B7977 /* Build configuration list for PBXNativeTarget "CheckoutApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4F42ED541DBA63AD4E9D881 /* Debug */,
+				728D646929139CB6E95CB23F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9CE71D63A893CBD4A939F6BC /* Build configuration list for PBXNativeTarget "ProfileApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				153A2429A0C3186E6655BBBC /* Debug */,
+				78A59C32C5FB0FBA78ECE39B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		F6F16BAAD348A5EFBB00C146 /* Modules */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Modules;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		722019AD4DF59F51BE3D1804 /* CatalogFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F6F16BAAD348A5EFBB00C146 /* Modules */;
+			productName = CatalogFeature;
+		};
+		4449DD2FEA42C3E050022A5F /* CheckoutFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F6F16BAAD348A5EFBB00C146 /* Modules */;
+			productName = CheckoutFeature;
+		};
+		BF1F8AB458DBF95074FF3754 /* ProfileFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F6F16BAAD348A5EFBB00C146 /* Modules */;
+			productName = ProfileFeature;
+		};
+		1A41CC3EE1EE62BD663FE762 /* SharedContracts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F6F16BAAD348A5EFBB00C146 /* Modules */;
+			productName = SharedContracts;
+		};
+		248BB53FB521A0582F6AB7E4 /* InfraAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F6F16BAAD348A5EFBB00C146 /* Modules */;
+			productName = InfraAuth;
+		};
+		2B261CBE7583F2856D40480E /* CatalogDomain */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F6F16BAAD348A5EFBB00C146 /* Modules */;
+			productName = CatalogDomain;
+		};
+		CCB80DF32AD42380C707A3BB /* CheckoutDomain */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F6F16BAAD348A5EFBB00C146 /* Modules */;
+			productName = CheckoutDomain;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 909CB02D2F2D3FD700125F08 /* Project object */;
 }

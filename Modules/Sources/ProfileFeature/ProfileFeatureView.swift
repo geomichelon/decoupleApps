@@ -1,3 +1,4 @@
+// Author: George Michelon
 import SwiftUI
 import DesignSystem
 import ProfileDomain
@@ -14,10 +15,10 @@ public struct ProfileFeatureView: View {
 
     public var body: some View {
         VStack(spacing: DS.spacing) {
-            Text(isAuthenticated ? "Autenticado" : "Deslogado")
+            Text(isAuthenticated ? "Signed in" : "Signed out")
                 .font(.headline)
 
-            Button(isAuthenticated ? "Sair" : "Entrar") {
+            Button(isAuthenticated ? "Sign out" : "Sign in") {
                 isAuthenticated.toggle()
                 if isAuthenticated {
                     authPublisher.publish(.signedIn(userID: "user-123"))

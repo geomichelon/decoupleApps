@@ -1,51 +1,51 @@
 # 04 — Migration Plan
 
-> Outline da estrategia incremental (strangler) e checkpoints.
+> Outline for the incremental strategy (strangler) and checkpoints.
 
-## Objetivo
-- Extrair modulos e apps com risco controlado
-- Reduzir acoplamento sem parar o produto
+## Goal
+- Extract modules and apps with controlled risk
+- Reduce coupling without stopping the product
 
-## Ordem de extracao (com justificativa)
-1) Infra transversal (Network, Persistence, Analytics)
+## Extraction order (with rationale)
+1) Cross-cutting Infra (Network, Persistence, Analytics)
 2) SharedContracts (protocols/DTOs/events)
-3) Domain por BU (Catalog -> Checkout -> Profile)
-4) Feature por BU (Catalog -> Checkout -> Profile)
-5) UI/DesignSystem e SharedComponents
-6) Composition Roots (SuperApp + Apps por BU)
+3) Domain per BU (Catalog -> Checkout -> Profile)
+4) Feature per BU (Catalog -> Checkout -> Profile)
+5) UI/DesignSystem and SharedComponents
+6) Composition Roots (SuperApp + BU Apps)
 
-## Quebra de dependencias transitivas
-- Mapear hubs e dependencias indiretas
-- Substituir imports indiretos por contratos
-- Quebrar “utility modules” em servicos focados
-- Orcamentos de dependencia por modulo
+## Breaking transitive dependencies
+- Map hubs and indirect dependencies
+- Replace indirect imports with contracts
+- Split “utility modules” into focused services
+- Dependency budgets per module
 
-## Lidar com ciclos (sem gambiarra)
-- Inversao de dependencia via ports no Domain
-- Eventos e contratos assincronos
-- Orquestracao no Composition Root
-- Revisao de boundaries quando ciclos persistirem
+## Handling cycles (no hacks)
+- Invert dependencies via Domain ports
+- Events and async contracts
+- Orchestration in Composition Root
+- Revisit boundaries when cycles persist
 
-## Checkpoints por etapa
+## Checkpoints per stage
 - Infra + Contracts: unit, smoke, lint
-- Domain por BU: unit + smoke por BU
-- Feature por BU: integracao local + fluxos criticos
-- Composition Roots: build por app + checklist de release
+- Domain per BU: unit + BU smoke
+- Feature per BU: local integration + critical flows
+- Composition Roots: per-app build + release checklist
 
-## Compatibilidade de APIs internas
-- Versionamento leve e backward compatibility
-- Deprecacao com prazo e owner
-- Contratos minimos e documentados
+## Internal API compatibility
+- Lightweight versioning and backward compatibility
+- Deprecation with deadline and owner
+- Minimal, documented contracts
 
-## Criterios de “done” por modulo
-- Compila isoladamente
-- Lint de camada/BU aprovado
-- Testes essenciais passando
-- API publica documentada
-- Metricas dentro do budget
-- Ownership definido
+## “Done” criteria per module
+- Compiles in isolation
+- Layer/BU lint approved
+- Essential tests passing
+- Public API documented
+- Metrics within budget
+- Ownership defined
 
-## Referencias internas
+## References
 - `00-Architecture.md`
 - `01-Dependency-Graph-Rules.md`
 - `02-Module-API-Contracts.md`

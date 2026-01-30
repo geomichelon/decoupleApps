@@ -1,3 +1,4 @@
+// Author: George Michelon
 import SwiftUI
 import DesignSystem
 import CheckoutDomain
@@ -18,20 +19,20 @@ public struct CheckoutFeatureView: View {
 
     public var body: some View {
         List {
-            Section("Resumo") {
-                Text("Origem: \(context.source)")
-                Text("Itens: \(cart.items.count)")
-                Text("Total: R$ \(cart.total)")
+            Section("Summary") {
+                Text("Source: \(context.source)")
+                Text("Items: \(cart.items.count)")
+                Text("Total: $\(cart.total)")
             }
 
-            Section("Autenticação") {
+            Section("Authentication") {
                 Text(lastAuthEventDescription)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
 
             Section {
-                Button("Finalizar pedido") {}
+                Button("Place order") {}
                     .buttonStyle(PrimaryButtonStyle())
             }
         }
@@ -47,11 +48,11 @@ public struct CheckoutFeatureView: View {
     private var lastAuthEventDescription: String {
         switch lastAuthEvent {
         case .signedIn(let userID):
-            return "Usuário autenticado: \(userID)"
+            return "Signed in: \(userID)"
         case .signedOut:
-            return "Usuário deslogado"
+            return "Signed out"
         case .none:
-            return "Sem eventos de autenticação ainda"
+            return "No auth events yet"
         }
     }
 }

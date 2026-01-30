@@ -1,3 +1,4 @@
+// Author: George Michelon
 import SwiftUI
 import CheckoutFeature
 import CheckoutDomain

@@ -1,3 +1,4 @@
+// Author: George Michelon
 //
 //  ContentView.swift
 //  DecoupledApps-iOS

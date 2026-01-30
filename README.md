@@ -1,48 +1,50 @@
-# DecoupledApps-iOS — README Outline (completo)
+# DecoupledApps-iOS — README Outline (complete)
 
-> Estrutura sugerida do README. Substitua os bullets por conteúdo final conforme o repo evoluir.
+Author: George Michelon
 
-## Índice
-1. Contexto e problema
-2. Objetivo
-3. Arquitetura-alvo e princípios
+> Suggested README structure. Replace bullets with final content as the repo evolves.
+
+## Table of Contents
+1. Context and problem
+2. Objective
+3. Target architecture and principles
 4. Dependency graph
-5. Contratos inter-módulo
-6. Navegação
-7. Estratégia de dependências
+5. Inter-module contracts
+6. Navigation
+7. Dependency strategy
 8. Build performance
-9. Estratégia incremental de migração
-10. Testes e governança
+9. Incremental migration strategy
+10. Tests and governance
 11. Roadmap
-12. FAQ de trade-offs
-13. Como rodar
+12. Trade-offs FAQ
+13. How to run
 
-## 1. Contexto e problema (milhares de módulos / agilidade)
-- Cenário do super‑app: crescimento de escopo, times e dependências
-- Dor principal: complexidade acoplada desacelera releases e onboarding
-- Sinais de escala: milhares de módulos, builds longos, regressões cruzadas
-- Impacto: custo de mudança alto, ownership difuso, retrabalho
+## 1. Context and problem (thousands of modules / agility)
+- Super-app scenario: scope, team, and dependency growth
+- Main pain: coupled complexity slows releases and onboarding
+- Scale signals: thousands of modules, long builds, cross regressions
+- Impact: high change cost, unclear ownership, rework
 
-## 2. Objetivo (extração de apps por unidade de negócio)
-- Transformar um super‑app em apps independentes por unidade de negócio
-- Manter governança e consistência sem bloquear autonomia dos times
-- Provar que a extração é incremental, segura e mensurável
-- Demonstrar limites de domínio e contratos estáveis entre módulos
+## 2. Objective (app extraction by business unit)
+- Turn a super-app into independent apps by business unit
+- Keep governance and consistency without blocking autonomy
+- Prove extraction is incremental, safe, and measurable
+- Demonstrate domain boundaries and stable contracts
 
-## 3. Arquitetura-alvo e princípios (Clean Architecture + boundaries)
-- Camadas e responsabilidades (entidades, casos de uso, interface)
-- Fronteiras explícitas entre domínios e infraestrutura
-- Regra de dependência e direção do fluxo
-- Isolamento de mudanças e estabilidade de contratos
-- Princípios de modularização e desacoplamento
+## 3. Target architecture and principles (Clean Architecture + boundaries)
+- Layers and responsibilities (entities, use cases, interface)
+- Explicit boundaries between domains and infrastructure
+- Dependency rule and flow direction
+- Change isolation and contract stability
+- Modularization and decoupling principles
 
-### Unidades de negócio (BUs)
-- Catalog, Checkout e Profile como domínios principais
-- Cada BU com módulos Feature, Domain e contratos públicos
-- UI/DesignSystem transversal; Infra como implementações técnicas
-- Composition Root monta apps por BU e SuperApp
+### Business units (BUs)
+- Catalog, Checkout, and Profile as main domains
+- Each BU with Feature, Domain, and public contracts
+- UI/DesignSystem is cross-cutting; Infra is technical implementations
+- Composition Root assembles BU apps and SuperApp
 
-### Lista de módulos por categoria
+### Module list by category
 **Feature**
 - Feature/CatalogFeature
 - Feature/CheckoutFeature
@@ -72,245 +74,245 @@
 - App/ProfileApp
 - App/CompositionKits
 
-## 4. Dependency graph (visão geral)
-- Visão de alto nível do grafo de dependências
-- Módulos core vs. módulos de domínio vs. infraestrutura
-- Fluxo permitido e dependências proibidas
-- Como o grafo é gerado/validado
+## 4. Dependency graph (overview)
+- High-level view of the dependency graph
+- Core vs domain vs infrastructure modules
+- Allowed flow and forbidden dependencies
+- How the graph is generated/validated
 
-### Matriz de dependências permitidas + regras anti‑ciclo
-- Feature → Domain, UI/DesignSystem, Infra (via abstrações), SharedContracts
-- Domain → SharedContracts (opcional)
-- Infra → Domain (somente para implementar ports)
-- UI/DesignSystem → (não depende de Feature/Domain/Infra)
-- Composition Root → Feature, Domain, Infra, UI/DesignSystem
+### Allowed dependencies matrix + anti-cycle rules
+- Feature → Domain, UI/DesignSystem, SharedContracts, Infra (via abstractions)
+- Domain → SharedContracts (optional)
+- Infra → Domain (only to implement ports)
+- UI/DesignSystem → (no dependencies upward)
+- Composition Root → all layers
 
-**Anti‑ciclo**
-- Nenhum módulo depende de Feature de outro BU
-- Domain não depende de Domain de outra BU (apenas SharedContracts)
-- Infra nunca depende de Feature
-- Composition Root é o único ponto que conhece múltiplas BUs
-- Ciclos bloqueados por lint (A→B→C→A)
+**Anti-cycle**
+- No Feature depends on another BU Feature
+- Domain does not depend on another BU Domain (only SharedContracts)
+- Infra never depends on Feature
+- Composition Root is the only place aware of multiple BUs
+- Cycles are blocked by lint (A→B→C→A)
 
-### Diagrama textual do grafo (camadas + dependências principais)
+### Text graph (layers + main dependencies)
 - Composition Root → Features (Catalog/Checkout/Profile) + UI + Infra
 - Feature/* → Domain/* + UI + SharedContracts
 - Infra/* → Domain/* (ports)
 - Domain/* → SharedContracts
-- UI/DesignSystem → (sem dependências acima)
+- UI/DesignSystem → (no dependencies above)
 
-### Targets por BU (extração de apps)
+### BU targets (app extraction)
 **SuperApp**
-- Inclui: CatalogFeature, CheckoutFeature, ProfileFeature + Domains + Infra + UI
-- Objetivo: compatibilidade total durante a migração
+- Includes: CatalogFeature, CheckoutFeature, ProfileFeature + Domains + Infra + UI
+- Goal: full compatibility during migration
 
 **CatalogApp**
-- Inclui: CatalogFeature + CatalogDomain + SharedContracts + UI + Infra base
-- Objetivo: validar extração isolada do catálogo
+- Includes: CatalogFeature + CatalogDomain + SharedContracts + UI + base Infra
+- Goal: validate isolated catalog extraction
 
 **CheckoutApp**
-- Inclui: CheckoutFeature + CheckoutDomain + SharedContracts + UI + Infra de pagamentos
-- Objetivo: isolar fluxo crítico de compra
+- Includes: CheckoutFeature + CheckoutDomain + SharedContracts + UI + payments Infra
+- Goal: isolate critical purchase flow
 
 **ProfileApp**
-- Inclui: ProfileFeature + ProfileDomain + SharedContracts + UI + Infra de auth
-- Objetivo: separar autenticação e gestão de conta
+- Includes: ProfileFeature + ProfileDomain + SharedContracts + UI + auth Infra
+- Goal: separate auth and account management
 
-## 5. Contratos inter-módulo (API pública)
-- Tipos de contrato: **protocols**, **DTOs**, **events**
-- Local dos contratos: `Domain/SharedContracts`
-- Regras de compatibilidade e versionamento
-- Evitar “Shared Hell”: contratos mínimos, estáveis e com owner
-- Tratar dependências transitivas como públicas (auditar imports indiretos)
+## 5. Inter-module contracts (public API)
+- Contract types: **protocols**, **DTOs**, **events**
+- Contract location: `Domain/SharedContracts`
+- Compatibility and versioning rules
+- Avoid “Shared Hell”: minimal, stable contracts with owner
+- Treat transitive dependencies as public (audit indirect imports)
 
-**Assinaturas conceituais (texto):**
-- `protocol CheckoutRouting` — “iniciar fluxo de checkout com contexto de compra”
-- `struct CheckoutContextDTO` — “dados mínimos: itens, preço, promoções, origem”
-- `protocol AuthStateProviding` — “publicar estado autenticado e expiração”
+**Conceptual signatures (text):**
+- `protocol CheckoutRouting` — “start checkout flow with purchase context”
+- `struct CheckoutContextDTO` — “minimal data: items, price, promos, source”
+- `protocol AuthStateProviding` — “publish authenticated state and expiration”
 - `event AuthStateChanged` — “login, logout, refresh, expiry”
-- `struct AuthSnapshotDTO` — “estado mínimo para uso cross‑module”
+- `struct AuthSnapshotDTO` — “minimal state for cross-module use”
 
-## 6. Navegação (Coordinator/Router via protocol)
-- Navegação desacoplada por contrato público (ex.: `CheckoutRouting`)
-- `CatalogFeature` depende do contrato, não de `CheckoutFeature`
-- `Composition Root` injeta a implementação concreta do router
-- Benefícios: isolamento de UI, testes por contrato, troca de implementação
+## 6. Navigation (Coordinator/Router via protocol)
+- Navigation decoupled by public contract (e.g., `CheckoutRouting`)
+- `CatalogFeature` depends on the contract, not `CheckoutFeature`
+- `Composition Root` injects the concrete router implementation
+- Benefits: UI isolation, contract-based tests, implementation swap
 
-**Fluxo Catalog → Checkout (sem import direto):**
-- Catalog emite intenção de navegação por contrato
-- Composition Root resolve o target e instancia o fluxo
-- Checkout recebe contexto via DTO estável
+**Catalog → Checkout flow (no direct import):**
+- Catalog emits navigation intent via contract
+- Composition Root resolves target and instantiates flow
+- Checkout receives context via stable DTO
 
-## 7. Estratégia de dependências (CocoaPods + SPM)
+## 7. Dependency strategy (CocoaPods + SPM)
 
-### A) CocoaPods (podspecs e subspecs)
-**Organização de módulos e targets**
-- Pods por camada: Domain, Feature, Infra, UI
-- Subspecs por BU: Catalog, Checkout, Profile
-- Composition Roots como targets que consomem pods explícitos
-- Pod `SharedContracts` dedicado a contratos públicos
+### A) CocoaPods (podspecs and subspecs)
+**Module/target organization**
+- Pods by layer: Domain, Feature, Infra, UI
+- Subspecs by BU: Catalog, Checkout, Profile
+- Composition Roots as targets consuming explicit pods
+- Dedicated `SharedContracts` pod for public contracts
 
-**Resources (strings/imagens)**
-- Bundle por pod com naming padronizado
-- Strings/localization por módulo
-- Importação explícita de bundles necessários
+**Resources (strings/images)**
+- Bundle per pod with standardized naming
+- Strings/localization per module
+- Explicit bundle imports
 
-**Evitar dependências transitivas**
-- `podspec` explícito e subspecs mínimos
-- Lint por camada/BU e auditoria de headers
+**Avoid transitive dependencies**
+- Explicit `podspec` and minimal subspecs
+- Layer/BU lint and header auditing
 
-**Trade‑offs (build, manutenção, DX, CI)**
-- Controle granular alto; manutenção de podspecs maior
-- Resolução de pods pode impactar build
-- CI com cache por pod, mas pipeline mais complexo
+**Trade-offs (build, maintenance, DX, CI)**
+- High granularity control; more podspec maintenance
+- Pod resolution can impact build
+- CI with per-pod cache, but more pipeline complexity
 
-**Quando escolher (empresa grande)**
-- Legado forte em CocoaPods
-- Necessidade de controle fino de APIs públicas
-- Muitos recursos e bundles isolados
+**When to choose (large company)**
+- Strong CocoaPods legacy
+- Need fine-grained public API control
+- Many resources and isolated bundles
 
-**Documentar no README**
-- Seção “Dependências (CocoaPods)”
-- Seção “Bundles de Recursos”
-- Seção “Políticas de API Pública”
-- Seção “Regras de Dependência”
+**Document in README**
+- “Dependencies (CocoaPods)” section
+- “Resource Bundles” section
+- “Public API Policies” section
+- “Dependency Rules” section
 
 ### B) Swift Package Manager (SPM)
-**Organização de módulos e targets**
-- Packages por camada; targets por BU
-- `SharedContracts` como target isolado
-- Composition Roots como targets de app
+**Module/target organization**
+- Packages by layer; targets by BU
+- `SharedContracts` as isolated target
+- Composition Roots as app targets
 
-**Resources (strings/imagens)**
-- Resources por target e bundle do módulo
-- Convenção de acesso e paths consistentes
+**Resources (strings/images)**
+- Resources per target and module bundle
+- Consistent access conventions and paths
 
-**Evitar dependências transitivas**
-- Targets pequenos e específicos
-- Lint de imports proibidos por camada/BU
-- Review obrigatório de mudanças no manifest
+**Avoid transitive dependencies**
+- Small, focused targets
+- Lint for forbidden imports by layer/BU
+- Mandatory review for manifest changes
 
-**Trade‑offs (build, manutenção, DX, CI)**
-- Integração simples e nativa
-- Menos infra auxiliar
-- Granularidade de build pode ser menor
+**Trade-offs (build, maintenance, DX, CI)**
+- Simple native integration
+- Less auxiliary infra
+- Build granularity can be lower
 
-**Quando escolher (empresa grande)**
-- Padronização no ecossistema Swift
-- Onboarding rápido e DX consistente
-- Migração progressiva para SPM
+**When to choose (large company)**
+- Swift ecosystem standardization
+- Fast onboarding and consistent DX
+- Progressive migration to SPM
 
-**Documentar no README**
-- Seção “Dependências (SPM)”
-- Seção “Resources por Módulo”
-- Seção “Boundary Rules”
-- Seção “Governança de Pacotes”
+**Document in README**
+- “Dependencies (SPM)” section
+- “Resources per Module” section
+- “Boundary Rules” section
+- “Package Governance” section
 
 ## 8. Build performance
 
-### Plano de medição (métricas e metodologia)
-- Comparar **baseline (antes)** vs **estado modularizado (depois)**
-- Medir impacto em **tempo de build**, **tempo de feedback** e **estabilidade de CI**
-- Ambiente controlado, 5–10 execuções por cenário, usar mediana
-- Cenários: clean build, incremental, link time, scripts
-- Logs brutos + planilha de resultados + observações
+### Measurement plan (metrics and methodology)
+- Compare **baseline (before)** vs **modular (after)**
+- Measure **build time**, **feedback time**, **CI stability**
+- Controlled environment, 5–10 runs per scenario, use median
+- Scenarios: clean build, incremental, link time, scripts
+- Raw logs + results sheet + notes
 
-### Tabela de métricas (para preencher)
+### Metrics table (to fill)
 
-| Métrica | Baseline (antes) | Modularizado (depois) | Variação | Observações |
+| Metric | Baseline (before) | Modular (after) | Delta | Notes |
 |---|---:|---:|---:|---|
 | Clean build (s) |  |  |  |  |
-| Incremental (mesmo módulo) (s) |  |  |  |  |
-| Incremental (contrato) (s) |  |  |  |  |
+| Incremental (same module) (s) |  |  |  |  |
+| Incremental (contract change) (s) |  |  |  |  |
 | Link time (s) |  |  |  |  |
 | Script phases total (s) |  |  |  |  |
 | Cache hit (CI) (%) |  |  |  |  |
-| Falhas intermitentes (CI) |  |  |  |  |
-| Tempo de feedback (s) |  |  |  |  |
+| Flaky failures (CI) |  |  |  |  |
+| Feedback time (s) |  |  |  |  |
 
-### Roteiro de otimizações (alto impacto primeiro)
-- Isolar módulos “quentes” com maior frequência de mudança
-- Reduzir dependências transitivas e imports desnecessários
-- Remover script phases globais; mover para módulos específicos
-- Fazer split de targets grandes em menores por BU
-- Separar recursos e bundles por módulo para evitar recompilações
-- Revisar linking e caching de CI por módulo
+### Optimization roadmap (highest impact first)
+- Isolate “hot” modules with high change frequency
+- Reduce transitive dependencies and unnecessary imports
+- Remove global script phases; move to specific modules
+- Split large targets by BU
+- Separate resources and bundles per module to avoid recompiles
+- Review linking and CI caching by module
 
-### Como apresentar resultados (README + Docs)
-- README: resumo com 2–3 métricas e % de melhoria
-- Docs: metodologia, logs, screenshots e tabelas completas
+### How to present results (README + Docs)
+- README: 2–3 metrics with % improvement
+- Docs: methodology, logs, screenshots, full tables
 
-### Arm traps (parecem boas, mas pioram)
-- Mega‑módulos shared que viram novo monólito
-- Excesso de frameworks dinâmicos
-- Scripts globais rodando em todos os targets
-- “Utilities” que puxam metade do grafo
-- Subdivisão excessiva que cria overhead
+### Arm traps (look good, get worse)
+- Giant shared modules that become a new monolith
+- Excessive dynamic frameworks
+- Global scripts running on all targets
+- Utility modules pulling half the graph
+- Over-splitting without real gains
 
-## 9. Estratégia incremental de migração (strangler)
+## 9. Incremental migration strategy (strangler)
 
-### Ordem de extração (com justificativa)
-1) Infra transversal (Network, Persistence, Analytics)
+### Extraction order (with rationale)
+1) Cross-cutting Infra (Network, Persistence, Analytics)
 2) SharedContracts (protocols/DTOs/events)
-3) Domain por BU (Catalog → Checkout → Profile)
-4) Feature por BU (Catalog → Checkout → Profile)
-5) UI/DesignSystem e SharedComponents
-6) Composition Roots (SuperApp + Apps por BU)
+3) Domain per BU (Catalog → Checkout → Profile)
+4) Feature per BU (Catalog → Checkout → Profile)
+5) UI/DesignSystem and SharedComponents
+6) Composition Roots (SuperApp + BU Apps)
 
-### Quebra de dependências transitivas
-- Mapear grafo atual e hubs de acoplamento
-- Substituir imports indiretos por contratos explícitos
-- Quebrar “utility modules” em serviços focados
-- Impor budgets de dependência por módulo
-- Lint de camada/BU para bloquear dependências cruzadas
+### Breaking transitive dependencies
+- Map current graph and coupling hubs
+- Replace indirect imports with explicit contracts
+- Split “utility modules” into focused services
+- Enforce dependency budgets per module
+- Layer/BU lint to block cross-dependencies
 
-### Lidar com ciclos (sem gambiarra)
-- Extrair interfaces para o Domain e mover implementações para Infra
-- Inverter dependência usando contratos (callbacks por protocolo)
-- Mover orquestração para Composition Root
-- Criar módulo de eventos (SharedContracts)
-- Revisar boundaries quando ciclos persistirem
+### Handling cycles (no hacks)
+- Move interfaces to Domain, implementations to Infra
+- Invert dependencies via contracts (protocol callbacks)
+- Move orchestration to Composition Root
+- Create event module (SharedContracts)
+- Re-evaluate boundaries if cycles persist
 
-### Checkpoints por etapa (testes e safety)
+### Checkpoints per stage (tests and safety)
 - Infra + Contracts: unit, smoke, lint
-- Domain por BU: unit + smoke por BU + compatibilidade
-- Feature por BU: integração local + fluxos críticos
-- Composition Roots: build por app + smoke + release checklist
+- Domain per BU: unit + BU smoke
+- Feature per BU: local integration + critical flows
+- Composition Roots: per-app build + release checklist
 
-### Compatibilidade de APIs internas
-- Versionamento leve de contratos (v1/v2)
-- Backward compatibility sempre que possível
-- Depreciação com prazo e owner
-- Contratos mínimos, sem payloads inflados
+### Internal API compatibility
+- Lightweight contract versioning (v1/v2)
+- Backward compatibility by default
+- Deprecation with deadline and owner
+- Minimal contracts, documented
 
-### Critérios de “done” por módulo
-- Compila isoladamente com dependências explícitas
-- Lint de camada/BU passa sem exceções
-- Testes essenciais do módulo rodando
-- API pública documentada
-- Métricas de build dentro do budget
-- Ownership definido
+### “Done” criteria per module
+- Compiles in isolation with explicit dependencies
+- Layer/BU lint passes
+- Essential module tests passing
+- Public API documented
+- Build metrics within budget
+- Ownership defined
 
-## 10. Testes e governança (ownership, regras, anti-ciclo)
-- Ownership por domínio e responsabilidades claras
-- Regras de dependência e enforcement automatizado
-- Política anti‑ciclo e detecção de violações
-- Estratégia de testes: unitários, integração, contrato
+## 10. Tests and governance (ownership, rules, anti-cycle)
+- Ownership per domain with clear responsibilities
+- Dependency rules and automated enforcement
+- Anti-cycle policy and violation detection
+- Test strategy: unit, integration, contract
 
-## 11. Roadmap (próximos passos)
-- Próximas extrações de apps/unidades
-- Evolução do tooling de arquitetura
-- Metas de performance e qualidade
-- Adoção por times e onboarding
+## 11. Roadmap (next steps)
+- Next app/BU extractions
+- Architecture tooling evolution
+- Performance and quality targets
+- Team adoption and onboarding
 
-## 12. FAQ de trade-offs (frameworks, linking, scripts)
+## 12. Trade-offs FAQ (frameworks, linking, scripts)
 - Dynamic vs static frameworks
-- SPM vs CocoaPods: custos e benefícios
-- Script phases e impacto no build
-- Tamanho do app e impactos de linking
+- SPM vs CocoaPods: costs and benefits
+- Script phases and build impact
+- App size and linking implications
 
-## 13. Como rodar (somente passos em texto)
-- Pré‑requisitos de ambiente
-- Passos para instalar dependências
-- Como abrir e compilar o projeto
-- Como executar testes básicos
+## 13. How to run (text-only steps)
+- Environment prerequisites
+- Install dependencies
+- Open and build the project
+- Run basic tests

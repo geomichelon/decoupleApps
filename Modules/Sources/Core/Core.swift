@@ -1,3 +1,4 @@
+// Author: George Michelon
 import Foundation
 
 public protocol Clock {

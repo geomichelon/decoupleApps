@@ -1,3 +1,4 @@
+// Author: George Michelon
 //
 //  Item.swift
 //  DecoupledApps-iOS

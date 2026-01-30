@@ -1,4 +1,5 @@
 // swift-tools-version: 5.9
+// Author: George Michelon
 import PackageDescription
 
 let package = Package(

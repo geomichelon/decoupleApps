@@ -1,3 +1,4 @@
+// Author: George Michelon
 import SwiftUI
 import DesignSystem
 import CatalogDomain
@@ -20,7 +21,7 @@ public struct CatalogFeatureView: View {
                         HStack {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(item.title).font(.headline)
-                                Text("R$ \(item.price)").font(.subheadline)
+                                Text("$\(item.price)").font(.subheadline)
                             }
                             Spacer()
                         }
@@ -29,7 +30,7 @@ public struct CatalogFeatureView: View {
             }
 
             Section {
-                Button("Ir para Checkout") {
+                Button("Go to Checkout") {
                     let lineItems = items.map {
                         CheckoutLineItemDTO(id: $0.id, name: $0.title, price: $0.price, quantity: 1)
                     }

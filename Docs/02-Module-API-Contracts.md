@@ -1,41 +1,41 @@
 # 02 — Module API Contracts
 
-> Outline de contratos, tipos e politica de versionamento.
+> Outline for contracts, types, and versioning policy.
 
-## Objetivo
-- Definir como modulos se comunicam sem imports diretos
-- Evitar dependencias ocultas e “shared hell”
+## Goal
+- Define how modules communicate without direct imports
+- Avoid hidden dependencies and “shared hell”
 
-## Tipos de contrato
-- **Protocols**: capacidades e ports (ex.: routing, state providing)
-- **DTOs**: dados minimos e estaveis entre modulos
-- **Events**: fatos de dominio para integracao async
+## Contract types
+- **Protocols**: capabilities and ports (e.g., routing, state providing)
+- **DTOs**: minimal, stable data between modules
+- **Events**: domain facts for async integration
 
-## Localizacao
-- Contratos publicos vivem em `Domain/SharedContracts`
-- Sem dependencias de Feature, Infra ou UI
+## Location
+- Public contracts live in `Domain/SharedContracts`
+- No dependencies on Feature, Infra, or UI
 
-## Versionamento e compatibilidade
-- Versionamento leve (v1, v2) por contrato
-- Backward compatibility por padrao
-- Deprecacao com prazo e owner
+## Versioning and compatibility
+- Lightweight versioning (v1, v2) per contract
+- Backward compatibility by default
+- Deprecation with deadline and owner
 
-## Regras de design
-- Contratos minimos e com escopo claro
-- DTOs sem logica, apenas dados
-- Eventos nomeados por fato de negocio
-- Evitar “god contracts” compartilhados
+## Design rules
+- Minimal contracts with clear scope
+- DTOs contain data only, no logic
+- Events named after business facts
+- Avoid “god contracts”
 
-## Publicacao e governance
-- Revisao obrigatoria para novos contratos
-- Documentacao curta com exemplos de uso
-- Metricas de crescimento de contratos
+## Publication and governance
+- Mandatory review for new contracts
+- Short docs with usage examples
+- Contract growth metrics
 
-## Riscos e mitigacoes
-- Contratos inchados -> split por dominio
-- Acoplamento cruzado -> reforcar boundaries
-- Quebra de compatibilidade -> politica de deprecacao
+## Risks and mitigations
+- Bloated contracts -> split by domain
+- Cross coupling -> reinforce boundaries
+- Breaking compatibility -> deprecation policy
 
-## Referencias internas
+## References
 - `00-Architecture.md`
 - `01-Dependency-Graph-Rules.md`

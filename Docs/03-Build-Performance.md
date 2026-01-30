@@ -1,42 +1,42 @@
 # 03 — Build Performance
 
-> Outline de metricas, metodologia e apresentacao de resultados.
+> Outline for metrics, methodology, and result presentation.
 
-## Objetivo
-- Provar melhoria de build e eficiencia de workflow
-- Comparar baseline (antes) vs modularizado (depois)
+## Goal
+- Prove build improvement and workflow efficiency
+- Compare baseline (before) vs modular (after)
 
-## Metodologia
-- Ambiente controlado (mesmo Xcode e macOS)
-- 5–10 execucoes por cenario, usar mediana
-- Cenarios: clean build, incremental, link time, scripts
-- Logs brutos + planilha de resultados
+## Methodology
+- Controlled environment (same Xcode and macOS)
+- 5–10 runs per scenario, use median
+- Scenarios: clean build, incremental, link time, scripts
+- Raw logs + results sheet
 
-## Metricas
+## Metrics
 - Clean build (s)
-- Incremental por modulo (s)
-- Incremental por contrato (s)
+- Incremental per module (s)
+- Incremental for contract change (s)
 - Link time (s)
 - Script phases total (s)
 - Cache hit (CI) (%)
-- Falhas intermitentes (CI)
-- Tempo de feedback (s)
+- Flaky failures (CI)
+- Feedback time (s)
 
-## Como coletar
-- Padronizar schema e target de medicao
-- Rodar sempre no mesmo horario/ambiente
-- Salvar logs e screenshots do build log
+## How to collect
+- Standardize scheme and target
+- Run at the same time/environment
+- Save logs and build screenshots
 
-## Apresentacao de resultados
-- README: 2–3 metricas com % de melhoria
-- Docs: tabelas completas + screenshots + logs
-- Diferenciar cenarios (clean, incremental, link, scripts)
+## Results presentation
+- README: 2–3 metrics with % improvement
+- Docs: full tables + screenshots + logs
+- Separate scenarios (clean, incremental, link, scripts)
 
 ## Arm traps
-- Mega-modulos shared
-- Excesso de frameworks dinamicos
-- Scripts globais em todos os targets
-- Subdivisao excessiva sem ganho real
+- Giant shared modules
+- Too many dynamic frameworks
+- Global scripts on every target
+- Over-splitting without real gains
 
-## Referencias internas
+## References
 - `04-Migration-Plan.md`

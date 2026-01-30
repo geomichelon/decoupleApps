@@ -1,3 +1,4 @@
+// Author: George Michelon
 import SwiftUI
 import CatalogFeature
 import CatalogDomain
@@ -24,10 +25,10 @@ private struct CatalogAppRootView: View {
                 }
             )
             .navigationTitle("Catalog")
-            .alert("Checkout indisponível", isPresented: $showingCheckout) {
+            .alert("Checkout unavailable", isPresented: $showingCheckout) {
                 Button("OK", role: .cancel) {}
             } message: {
-                Text("Este app é apenas do catálogo.")
+                Text("This app is catalog-only.")
             }
         }
     }

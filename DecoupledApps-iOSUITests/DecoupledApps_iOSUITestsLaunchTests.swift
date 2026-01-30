@@ -1,3 +1,4 @@
+// Author: George Michelon
 //
 //  DecoupledApps_iOSUITestsLaunchTests.swift
 //  DecoupledApps-iOSUITests

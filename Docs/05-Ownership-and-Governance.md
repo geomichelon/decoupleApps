@@ -16,6 +16,7 @@
 - Cycle detection in the graph
 - Essential module tests
 - Contract validation (compatibility)
+- Ensure CheckoutFeature is not instantiated outside router/gate in App targets
 
 ## Lint and automation
 - Rules per layer and per BU

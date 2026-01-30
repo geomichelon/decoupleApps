@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Dependency rules (SPM)
+        run: bash Tools/check_spm_dependency_rules.sh
+
+      - name: Import boundaries
+        run: bash Tools/check_import_boundaries.sh
+
+      - name: Checkout gating/bypass check
+        run: bash Tools/check_checkout_bypass.sh
+
+      - name: Generate dependency graph
+        run: bash Tools/gen_dependency_graph.sh
+
+      - name: SPM tests
+        run: swift test --package-path Modules
